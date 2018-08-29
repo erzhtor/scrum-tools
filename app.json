@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "scrum-tools",
-    "description": "A very interesting project.",
+    "description": "Scrum standup + pocker cards tools mobile app.",
     "slug": "scrum-tools",
     "privacy": "public",
     "sdkVersion": "29.0.0",
@@ -22,6 +22,11 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "androidStatusBarColor": "#334393",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#334393"
     }
   }
 }
