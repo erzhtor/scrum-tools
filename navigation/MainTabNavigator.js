@@ -7,34 +7,52 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const StandupStack = createStackNavigator({
+  Standup: HomeScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+StandupStack.navigationOptions = {
+  tabBarLabel: 'Standup',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-people${focused ? '' : '-outline'}`
+          : 'md-people'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const StatsStack = createStackNavigator({
+  Stats: HomeScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+StatsStack.navigationOptions = {
+  tabBarLabel: 'Stats',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-stats${focused ? '' : '-outline'}`
+          : 'md-stats'
+      }
+    />
+  ),
+};
+
+const CardsStack = createStackNavigator({
+  Cards: LinksScreen,
+});
+
+CardsStack.navigationOptions = {
+  tabBarLabel: 'Cards',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-grid${focused ? '' : '-outline'}` : 'md-grid'}
     />
   ),
 };
@@ -54,7 +72,8 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  StandupStack,
+  StatsStack,
+  CardsStack,
   SettingsStack,
 });
