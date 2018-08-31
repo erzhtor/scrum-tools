@@ -5,12 +5,12 @@ import {
   View,
   TouchableHighlight
 } from 'react-native';
-
 import Slider from "react-native-slider";
+import styled from "styled-components"
 
 import Constants from '../constants/Layout'
 
-const timeConvert = (num) => {
+const num2Time = (num) => {
   const minutes = Math.floor(num / 60);
   const seconds = num % 60;
   const format = (value) => {
@@ -21,6 +21,10 @@ const timeConvert = (num) => {
   } 
   return `${format(minutes)}:${format(seconds)}`;   
 }
+
+const StyledSlider = styled(Slider)`
+  ${({hidden}) => hidden ? 'opacity: 0;' : ''}
+`;
 
 export default class StandupScreen extends React.Component {
   static navigationOptions = {
@@ -54,21 +58,22 @@ export default class StandupScreen extends React.Component {
     return (
       <TouchableHighlight
         onPress={this.onTap.bind(this)}
+        underlayColor="lightgreen"
         style={styles.container}
       >
         <View style={styles.container}>
 
           <View style={styles.totalTimeContainer}>
-            <Text style={styles.totalTime}>Total Time: </Text>
+            <Text style={styles.totalTime}>Total Time:</Text>
           </View>
 
           <View style={styles.timeContainer}>
             <Text style={styles.time}>
-              {timeConvert(value)}
+              {num2Time(value)}
             </Text>
-            {!participant &&
             <View style={styles.rangeContainer}>
-              <Slider
+              <StyledSlider
+                hidden={!!participant}
                 value={this.state.value}
                 onValueChange={value => this.setState({ value, initialValue: value })}
                 minimumValue={0}
@@ -76,7 +81,7 @@ export default class StandupScreen extends React.Component {
                 step={10}
                 style={styles.range}
               />
-            </View>}
+            </View>
           </View>
 
           <View style={styles.tapToStartContainer}>
@@ -93,7 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
     alignItems: 'center'
   },
   totalTimeContainer: {
