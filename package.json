@@ -1,5 +1,6 @@
 {
-  "name": "my-new-project",
+  "name": "scrum-tools",
+  "version": "0.1.0",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
@@ -7,8 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test:watch": "node ./node_modules/jest/bin/jest.js --watchAll",
-    "test": "node ./node_modules/jest/bin/jest.js"
+    "test": "node ./node_modules/jest/bin/jest.js",
+    "test:watch": "node ./node_modules/jest/bin/jet.js --watchAll"
   },
   "jest": {
     "preset": "jest-expo"
