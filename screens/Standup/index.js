@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import { Text, TouchableHighlight, View } from "react-native";
 import Slider from "react-native-slider";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import ReactInterval from "react-interval";
 
 import { formatMillisToTime } from "./lib/format-millis-to-time";
@@ -23,6 +23,19 @@ const StyledLayout = styled(View)`
 
 const StyledSlider = styled(Slider)`
 	${({ hidden }) => (hidden ? "opacity: 0;" : "")};
+`;
+
+const StyledRangeContainer = styled(View)`
+	width: ${Constants.window.width};
+	padding: 20px;
+`;
+
+const StyledTimeContainer = styled(View)`
+	align-items: center;
+`;
+
+const StyledTapToStartContainer = styled(View)`
+	padding: 30px;
 `;
 
 export default class StandupScreen extends React.Component {
@@ -67,9 +80,9 @@ export default class StandupScreen extends React.Component {
 					/>
 					<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
 
-					<View style={styles.timeContainer}>
+					<StyledTimeContainer>
 						<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
-						<View style={styles.rangeContainer}>
+						<StyledRangeContainer>
 							<StyledSlider
 								hidden={!!participant}
 								value={this.state.millisPerUser}
@@ -78,29 +91,16 @@ export default class StandupScreen extends React.Component {
 								maximumValue={300 * MILLIS_IN_SECOND}
 								step={10 * MILLIS_IN_SECOND}
 							/>
-						</View>
-					</View>
+						</StyledRangeContainer>
+					</StyledTimeContainer>
 
-					<View style={styles.tapToStartContainer}>
+					<StyledTapToStartContainer>
 						<Text>
 							{!participant ? "Tap to start" : `Participant ${participant}`}
 						</Text>
-					</View>
+					</StyledTapToStartContainer>
 				</StyledLayout>
 			</StyledTouchableHighlight>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	timeContainer: {
-		alignItems: "center"
-	},
-	rangeContainer: {
-		width: Constants.window.width,
-		padding: 20
-	},
-	tapToStartContainer: {
-		padding: 30
-	}
-});

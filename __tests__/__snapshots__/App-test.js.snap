@@ -143,11 +143,11 @@ exports[`App snapshot renders the root without loading screen 1`] = `
                     style={null}
                   >
                     <View
-                      className="Standup__StyledLayout-sc-1b7ts4l-1 dIhHZU"
+                      className="Standup__StyledLayout-q9zz54-1 rITLS"
                       style={null}
                     >
                       <View
-                        className="TotalTime__StyledView-sc-1iuzwqc-0 iDBBPo"
+                        className="TotalTime__StyledView-sc-18hnstu-0 kPXAYP"
                       >
                         <Text
                           accessible={true}
@@ -168,7 +168,7 @@ exports[`App snapshot renders the root without loading screen 1`] = `
                         <Text
                           accessible={true}
                           allowFontScaling={true}
-                          className="Timer__StyledText-o4s2qw-0 fRdizv"
+                          className="Timer__StyledText-sc-12zzcr9-0 ktOJkH"
                           ellipsizeMode="tail"
                         >
                           02:00
@@ -183,7 +183,7 @@ exports[`App snapshot renders the root without loading screen 1`] = `
                         >
                           <View
                             animationType="timing"
-                            className="Standup__StyledSlider-sc-1b7ts4l-2 hunPlz"
+                            className="Standup__StyledSlider-q9zz54-2 doFbFx"
                             hidden={false}
                             onLayout={[Function]}
                             onValueChange={[Function]}

@@ -6,10 +6,10 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
+import StatsScreen from "../screens/Stats";
 import StandupScreen from "../screens/Standup";
-import LinksScreen from "../screens/LinksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import CardsScreen from "../screens/Cards";
+import SettingsScreen from "../screens/Settings";
 
 const StandupStack = createStackNavigator({
 	Standup: StandupScreen
@@ -30,7 +30,7 @@ StandupStack.navigationOptions = {
 };
 
 const StatsStack = createStackNavigator({
-	Stats: HomeScreen
+	Stats: StatsScreen
 });
 
 StatsStack.navigationOptions = {
@@ -48,7 +48,7 @@ StatsStack.navigationOptions = {
 };
 
 const CardsStack = createStackNavigator({
-	Cards: LinksScreen
+	Cards: CardsScreen
 });
 
 CardsStack.navigationOptions = {
