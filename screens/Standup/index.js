@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import { TouchableHighlight, View } from "react-native";
 import Slider from "react-native-slider";
 import styled from "styled-components/native";
 import ReactInterval from "react-interval";
@@ -87,7 +87,6 @@ export default class StandupScreen extends React.Component {
 						callback={this.onInterval.bind(this)}
 					/>
 					<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
-
 					<StyledTimeContainer>
 						<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
 						<StyledRangeContainer>
@@ -98,10 +97,12 @@ export default class StandupScreen extends React.Component {
 								minimumValue={0}
 								maximumValue={300 * MILLIS_IN_SECOND}
 								step={10 * MILLIS_IN_SECOND}
+								minimumTrackTintColor="red"
+								maximumTrackTintColor="white"
+								thumbTintColor="white"
 							/>
 						</StyledRangeContainer>
 					</StyledTimeContainer>
-
 					<StyledTapToStartContainer>
 						<TapToStart>
 							{!participant ? "Tap to start" : `Participant ${participant}`}
