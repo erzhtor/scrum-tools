@@ -1,15 +1,13 @@
 import React from "react";
-import { Platform } from "react-native";
 import {
 	createStackNavigator,
 	createBottomTabNavigator
 } from "react-navigation";
 
-import TabBarIcon from "../components/TabBarIcon";
-import StatsScreen from "../screens/Stats";
 import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
+import TabBarIcon from "../components/TabBarIcon";
 
 const StandupStack = createStackNavigator({
 	Standup: StandupScreen
@@ -17,34 +15,7 @@ const StandupStack = createStackNavigator({
 
 StandupStack.navigationOptions = {
 	tabBarLabel: "Standup",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-people${focused ? "" : "-outline"}`
-					: "md-people"
-			}
-		/>
-	)
-};
-
-const StatsStack = createStackNavigator({
-	Stats: StatsScreen
-});
-
-StatsStack.navigationOptions = {
-	tabBarLabel: "Stats",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-stats${focused ? "" : "-outline"}`
-					: "md-stats"
-			}
-		/>
-	)
+	tabBarIcon: ({ focused }) => <TabBarIcon name="standup" focused={focused} />
 };
 
 const CardsStack = createStackNavigator({
@@ -53,16 +24,7 @@ const CardsStack = createStackNavigator({
 
 CardsStack.navigationOptions = {
 	tabBarLabel: "Cards",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-grid${focused ? "" : "-outline"}`
-					: "md-grid"
-			}
-		/>
-	)
+	tabBarIcon: ({ focused }) => <TabBarIcon name="cards" focused={focused} />
 };
 
 const SettingsStack = createStackNavigator({
@@ -71,21 +33,21 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
 	tabBarLabel: "Settings",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-options${focused ? "" : "-outline"}`
-					: "md-options"
-			}
-		/>
-	)
+	tabBarIcon: ({ focused }) => <TabBarIcon name="settings" focused={focused} />
 };
 
-export default createBottomTabNavigator({
-	StandupStack,
-	StatsStack,
-	CardsStack,
-	SettingsStack
-});
+export default createBottomTabNavigator(
+	{
+		StandupStack,
+		CardsStack,
+		SettingsStack
+	},
+	{
+		tabBarOptions: {
+			style: {
+				borderTopColor: "transparent",
+				backgroundColor: "transparent"
+			}
+		}
+	}
+);

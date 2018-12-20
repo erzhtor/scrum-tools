@@ -1,10 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
 import styled from "styled-components/native";
+import { CustomText } from "../../components/CustomText";
 
-const StyledText = styled(Text)`
+const StyledText = styled(CustomText)`
 	font-size: 72;
-	font-weight: bold;
+	font-size: 90px;
+	text-align: center;
+	color: ${({ theme }) => theme.color.primary};
 `;
 
 export const Timer = ({ children }) => <StyledText>{children}</StyledText>;

@@ -9,6 +9,7 @@ import Constants from "../../constants/Layout";
 import { Timer } from "./Timer";
 import { MILLIS_IN_SECOND, INTERVAL_IN_MILLIS } from "./constants";
 import { TotalTime } from "./TotalTime";
+import { CustomText } from "../../components/CustomText";
 
 const StyledTouchableHighlight = styled(TouchableHighlight)`
 	flex: 1;
@@ -19,6 +20,7 @@ const StyledLayout = styled(View)`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	background: ${({ theme }) => theme.color.bg};
 `;
 
 const StyledSlider = styled(Slider)`
@@ -36,6 +38,12 @@ const StyledTimeContainer = styled(View)`
 
 const StyledTapToStartContainer = styled(View)`
 	padding: 30px;
+`;
+
+const TapToStart = styled(CustomText)`
+	font-size: 12px;
+	text-align: center;
+	color: ${({ theme }) => theme.color.secondary};
 `;
 
 export default class StandupScreen extends React.Component {
@@ -95,9 +103,9 @@ export default class StandupScreen extends React.Component {
 					</StyledTimeContainer>
 
 					<StyledTapToStartContainer>
-						<Text>
+						<TapToStart>
 							{!participant ? "Tap to start" : `Participant ${participant}`}
-						</Text>
+						</TapToStart>
 					</StyledTapToStartContainer>
 				</StyledLayout>
 			</StyledTouchableHighlight>

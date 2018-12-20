@@ -1,19 +1,24 @@
 import React from "react";
-import { Icon } from "expo";
+import { Image } from "react-native";
+import styled from "styled-components";
 
-import Colors from "../constants/Colors";
+const StyledImage = styled(Image)`
+	width: 40px;
+	height: 40px;
+	resize-mode: contain;
+	tint-color: ${({ focused, theme }) =>
+		focused ? theme.color.primary : theme.color.secondary};
+`;
 
-export default class TabBarIcon extends React.Component {
-	render() {
-		return (
-			<Icon.Ionicons
-				name={this.props.name}
-				size={26}
-				style={{ marginBottom: -3 }}
-				color={
-					this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault
-				}
-			/>
-		);
-	}
-}
+const iconStandup = require("../assets/images/icon-standup.png");
+const iconCards = require("../assets/images/icon-cards.png");
+const iconSettings = require("../assets/images/icon-settings.png");
+const ICON_NAMES = {
+	standup: iconStandup,
+	cards: iconCards,
+	settings: iconSettings
+};
+
+export default (TabBarIcon = ({ focused, name }) => {
+	return <StyledImage focused={focused} source={ICON_NAMES[name]} />;
+});
