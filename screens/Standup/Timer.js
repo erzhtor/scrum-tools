@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { CustomText } from "../../components/CustomText";
+import { StText } from "../../components/StText";
 
-const StyledText = styled(CustomText)`
+const StyledText = styled(StText)`
 	font-size: 72;
 	font-size: 90px;
 	text-align: center;

@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
-import { CustomText } from "./CustomText";
+import { StText } from "./StText";
 
 const StyledButton = styled(TouchableOpacity)`
 	background: ${({ theme, light }) =>
@@ -18,12 +18,13 @@ const StyledView = styled(View)`
 	align-self: flex-start;
 `;
 
-const StyledText = styled(CustomText)`
+const StyledText = styled(StText)`
 	color: ${({ theme, light }) =>
 		light ? theme.color.primary : theme.color.bg};
 	text-align: center;
 `;
-export const CustomButton = ({ children, light, selected, ...rest }) => {
+
+export const StButton = ({ children, light, selected, ...rest }) => {
 	return (
 		<StyledView>
 			<StyledButton light={light} bordered={selected} {...rest}>

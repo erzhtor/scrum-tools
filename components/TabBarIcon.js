@@ -19,6 +19,6 @@ const ICON_NAMES = {
 	settings: iconSettings
 };
 
-export default (TabBarIcon = ({ focused, name }) => {
+export const TabBarIcon = ({ focused, name }) => {
 	return <StyledImage focused={focused} source={ICON_NAMES[name]} />;
-});
+};

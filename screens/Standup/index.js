@@ -9,7 +9,7 @@ import Constants from "../../constants/Layout";
 import { Timer } from "./Timer";
 import { MILLIS_IN_SECOND, INTERVAL_IN_MILLIS } from "./constants";
 import { TotalTime } from "./TotalTime";
-import { CustomText } from "../../components/CustomText";
+import { StText } from "../../components/StText";
 
 const StyledTouchableHighlight = styled(TouchableHighlight)`
 	flex: 1;
@@ -40,7 +40,7 @@ const StyledTapToStartContainer = styled(View)`
 	padding: 30px;
 `;
 
-const TapToStart = styled(CustomText)`
+const TapToStart = styled(StText)`
 	font-size: 12px;
 	text-align: center;
 	color: ${({ theme }) => theme.color.secondary};

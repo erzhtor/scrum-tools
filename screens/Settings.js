@@ -1,8 +1,8 @@
 import React from "react";
 import { View, ScrollView, Button } from "react-native";
 import styled from "styled-components/native";
-import { CustomText } from "../components/CustomText";
-import { CustomButton } from "../components/CustomButton";
+import { StText } from "../components/StText";
+import { StButton } from "../components/StButton";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -12,7 +12,7 @@ const StyledLayout = styled(View)`
 	justify-content: space-around;
 `;
 
-const StyledHeader = styled(CustomText)`
+const StyledHeader = styled(StText)`
 	color: ${({ theme }) => theme.color.primary};
 	font-size: 24px;
 	text-align: center;
@@ -20,7 +20,7 @@ const StyledHeader = styled(CustomText)`
 	padding: 28px;
 `;
 
-const StyledButton = styled(CustomButton)`
+const StyledButton = styled(StButton)`
 	width: 127px;
 	height: 127px;
 	border-radius: 22px;

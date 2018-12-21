@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
 import styled from "styled-components/native";
-import { CustomText } from "../components/CustomText";
+import { StText } from "../components/StText";
 
 const StyledCard = styled(View)`
 	width: 80px;
@@ -23,7 +23,7 @@ const StyledLayout = styled(View)`
 	align-content: center;
 `;
 
-const StyledText = styled(CustomText)`
+const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.bg};
 	font-size: 42px;
 	text-align: center;

@@ -8,10 +8,10 @@ import styled from "styled-components";
 import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
-import TabBarIcon from "../components/TabBarIcon";
-import { CustomText } from "../components/CustomText";
+import { TabBarIcon } from "../components/TabBarIcon";
+import { StText } from "../components/StText";
 
-const StyledTabBarLabel = styled(CustomText)`
+const StyledTabBarLabel = styled(StText)`
 	font-family: "Slim Joe";
 	font-size: 10px;
 	text-align: center;

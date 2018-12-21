@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { CustomText } from "../../components/CustomText";
+import { StText } from "../../components/StText";
 
-const StyledText = styled(CustomText)`
+const StyledText = styled(StText)`
 	padding-top: 30;
 	color: ${({ theme }) => theme.color.secondary};
 	font-size: 14px;
