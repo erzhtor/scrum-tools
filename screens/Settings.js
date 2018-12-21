@@ -1,14 +1,45 @@
 import React from "react";
-import { ExpoConfigView } from "@expo/samples";
+import { View, ScrollView, Button } from "react-native";
+import styled from "styled-components/native";
+import { CustomText } from "../components/CustomText";
+import { CustomButton } from "../components/CustomButton";
+
+const StyledLayout = styled(View)`
+	background: ${({ theme }) => theme.color.bg};
+	flex: 1;
+	padding-top: 28px;
+	flex-direction: row;
+	justify-content: space-around;
+`;
+
+const StyledHeader = styled(CustomText)`
+	color: ${({ theme }) => theme.color.primary};
+	font-size: 24px;
+	text-align: center;
+	background: ${({ theme }) => theme.color.bg};
+	padding: 28px;
+`;
+
+const StyledButton = styled(CustomButton)`
+	width: 127px;
+	height: 127px;
+	border-radius: 22px;
+`;
 
 export default class SettingsScreen extends React.Component {
 	static navigationOptions = {
-		title: "app.json"
+		title: null,
+		header: props => <StyledHeader {...props}>Settings</StyledHeader>
 	};
 
 	render() {
-		/* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-		return <ExpoConfigView />;
+		return (
+			<ScrollView contentContainerStyle={{ justifyContent: "center", flex: 1 }}>
+				<StyledLayout>
+					<StyledButton selected>Dark Theme</StyledButton>
+					<StyledButton light>Light Theme</StyledButton>
+				</StyledLayout>
+			</ScrollView>
+		);
 	}
 }

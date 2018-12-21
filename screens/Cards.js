@@ -1,27 +1,31 @@
 import React from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import styled from "styled-components/native";
+import { CustomText } from "../components/CustomText";
 
 const StyledCard = styled(View)`
 	width: 80px;
 	height: 80px;
 	margin: 10px;
-	background-color: black;
+	background-color: ${({ theme }) => theme.color.primary};
 	align-content: center;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
 `;
 
 const StyledLayout = styled(View)`
 	flex: 1;
 	flex-direction: row;
 	flex-wrap: wrap;
+	background-color: ${({ theme }) => theme.color.bg};
 	justify-content: space-around;
 	align-content: center;
 `;
 
-const StyledText = styled(Text)`
-	color: white;
-	font-weight: bold;
-	font-size: 48px;
+const StyledText = styled(CustomText)`
+	color: ${({ theme }) => theme.color.bg};
+	font-size: 42px;
 	text-align: center;
 `;
 
