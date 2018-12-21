@@ -12,6 +12,10 @@ import { TotalTime } from "./TotalTime";
 import { StText } from "../../components/StText";
 import { StartButton } from "./StartButton";
 
+const StyledTouchableHighlight = styled(TouchableHighlight)`
+	flex: 1;
+`;
+
 const StyledLayout = styled(View)`
 	flex: 1;
 	flex-direction: column;
@@ -73,36 +77,41 @@ export default class StandupScreen extends React.Component {
 	render() {
 		const { participant, millisPerUser, count, totalMillis } = this.state;
 		return (
-			<StyledLayout>
-				<ReactInterval
-					timeout={INTERVAL_IN_MILLIS}
-					enabled={true}
-					callback={this.onInterval.bind(this)}
-				/>
-				<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
-				<StyledTimeContainer>
-					<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
-					<StyledRangeContainer>
-						<StyledSlider
-							hidden={!!participant}
-							value={this.state.millisPerUser}
-							onValueChange={value => this.setState({ millisPerUser: value })}
-							minimumValue={0}
-							maximumValue={300 * MILLIS_IN_SECOND}
-							step={10 * MILLIS_IN_SECOND}
-							minimumTrackTintColor="red"
-							maximumTrackTintColor="white"
-							thumbTintColor="white"
-						/>
-					</StyledRangeContainer>
-				</StyledTimeContainer>
-				<StyledTapToStartContainer>
-					{!participant && <StartButton onPress={this.onTap.bind(this)} />}
-					<TapToStart>
-						{!participant ? "Tap to start" : `Participant ${participant}`}
-					</TapToStart>
-				</StyledTapToStartContainer>
-			</StyledLayout>
+			<StyledTouchableHighlight
+				onPress={participant ? this.onTap.bind(this) : null}
+				underlayColor={participant ? "lightgreen" : null}
+			>
+				<StyledLayout>
+					<ReactInterval
+						timeout={INTERVAL_IN_MILLIS}
+						enabled={true}
+						callback={this.onInterval.bind(this)}
+					/>
+					<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
+					<StyledTimeContainer>
+						<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
+						<StyledRangeContainer>
+							<StyledSlider
+								hidden={!!participant}
+								value={this.state.millisPerUser}
+								onValueChange={value => this.setState({ millisPerUser: value })}
+								minimumValue={0}
+								maximumValue={300 * MILLIS_IN_SECOND}
+								step={10 * MILLIS_IN_SECOND}
+								minimumTrackTintColor="red"
+								maximumTrackTintColor="white"
+								thumbTintColor="white"
+							/>
+						</StyledRangeContainer>
+					</StyledTimeContainer>
+					<StyledTapToStartContainer>
+						{!participant && <StartButton onPress={this.onTap.bind(this)} />}
+						<TapToStart>
+							{!participant ? "Tap to start" : `Participant ${participant}`}
+						</TapToStart>
+					</StyledTapToStartContainer>
+				</StyledLayout>
+			</StyledTouchableHighlight>
 		);
 	}
 }
