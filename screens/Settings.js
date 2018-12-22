@@ -14,7 +14,6 @@ const StyledLayout = styled(View)`
 const StyledHeader = styled(StText)`
 	color: ${({ theme }) => theme.color.primary};
 	font-size: 24px;
-	text-align: center;
 	background: ${({ theme }) => theme.color.bg};
 	padding: 28px;
 `;
@@ -28,7 +27,11 @@ const StyledButton = styled(StButton)`
 export default class SettingsScreen extends React.Component {
 	static navigationOptions = {
 		title: null,
-		header: props => <StyledHeader {...props}>Settings</StyledHeader>
+		header: props => (
+			<StyledHeader centered {...props}>
+				Settings
+			</StyledHeader>
+		)
 	};
 
 	render() {

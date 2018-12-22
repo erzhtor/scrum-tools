@@ -16,7 +16,6 @@ const StyledContainer = styled(View)`
 const StyledHeader = styled(StText)`
 	color: ${({ theme }) => theme.color.primary};
 	font-size: 24px;
-	text-align: center;
 `;
 export class ReportScreen extends Component {
 	render() {
@@ -24,7 +23,7 @@ export class ReportScreen extends Component {
 			<StandupContext.Consumer>
 				{({ onStop }) => (
 					<StyledContainer>
-						<StyledHeader>Today</StyledHeader>
+						<StyledHeader centered>Today</StyledHeader>
 						<StopButton onPress={onStop} />
 					</StyledContainer>
 				)}

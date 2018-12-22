@@ -13,7 +13,6 @@ import { StText, TabBarIcon } from "../components";
 const StyledTabBarLabel = styled(StText)`
 	font-family: "Slim Joe";
 	font-size: 10px;
-	text-align: center;
 	color: ${({ theme, focused }) =>
 		focused ? theme.color.primary : theme.color.secondary};
 	padding-bottom: 3px;
@@ -25,7 +24,9 @@ const StandupStack = createStackNavigator({
 
 StandupStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel focused={focused}>Standup</StyledTabBarLabel>
+		<StyledTabBarLabel centered focused={focused}>
+			Standup
+		</StyledTabBarLabel>
 	),
 	tabBarIcon: ({ focused }) => <TabBarIcon name="standup" focused={focused} />
 };
@@ -36,7 +37,9 @@ const CardsStack = createStackNavigator({
 
 CardsStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel focused={focused}>Cards</StyledTabBarLabel>
+		<StyledTabBarLabel centered focused={focused}>
+			Cards
+		</StyledTabBarLabel>
 	),
 	tabBarIcon: ({ focused }) => <TabBarIcon name="cards" focused={focused} />
 };
@@ -47,7 +50,9 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel focused={focused}>Settings</StyledTabBarLabel>
+		<StyledTabBarLabel centered focused={focused}>
+			Settings
+		</StyledTabBarLabel>
 	),
 	tabBarIcon: ({ focused }) => <TabBarIcon name="settings" focused={focused} />
 };

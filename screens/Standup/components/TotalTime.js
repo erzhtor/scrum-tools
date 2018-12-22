@@ -7,9 +7,10 @@ const StyledText = styled(StText)`
 	padding-top: 30;
 	color: ${({ theme }) => theme.color.secondary};
 	font-size: 14px;
-	text-align: center;
 `;
 
 export const TotalTime = ({ totalMillis }) => (
-	<StyledText>Total Time: {formatMillisToTime(totalMillis)}</StyledText>
+	<StyledText centered>
+		Total Time: {formatMillisToTime(totalMillis)}
+	</StyledText>
 );

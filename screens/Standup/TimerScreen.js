@@ -22,7 +22,6 @@ const StyledLayout = styled(View)`
 
 const TapToStart = styled(StText)`
 	font-size: 12px;
-	text-align: center;
 	color: ${({ theme }) => theme.color.secondary};
 `;
 
@@ -52,7 +51,7 @@ export class TimerScreen extends Component {
 								value={millisPerUser}
 							/>
 							{!started && <StartButton onPress={onStart} />}
-							<TapToStart>
+							<TapToStart centered>
 								{started ? `Participant ${participant}` : "Tap to start"}
 							</TapToStart>
 						</StyledLayout>

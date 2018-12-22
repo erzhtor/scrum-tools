@@ -21,14 +21,15 @@ const StyledView = styled(View)`
 const StyledText = styled(StText)`
 	color: ${({ theme, light }) =>
 		light ? theme.color.primary : theme.color.bg};
-	text-align: center;
 `;
 
 export const StButton = ({ children, light, selected, ...rest }) => {
 	return (
 		<StyledView>
 			<StyledButton light={light} bordered={selected} {...rest}>
-				<StyledText light={!light}>{children}</StyledText>
+				<StyledText centered light={!light}>
+					{children}
+				</StyledText>
 			</StyledButton>
 		</StyledView>
 	);
