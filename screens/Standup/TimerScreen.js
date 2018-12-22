@@ -16,7 +16,8 @@ const StyledLayout = styled(View)`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	background: ${({ theme }) => theme.color.bg};
+	background: ${({ theme, warning }) =>
+		warning ? theme.color.bgWarning : theme.color.bg};
 	padding-bottom: 20px;
 `;
 
@@ -35,22 +36,23 @@ export class TimerScreen extends Component {
 					millisPerUser,
 					participant,
 					count,
-					onStart,
+					timeout,
+					onClick,
 					onSliderChange
 				}) => (
 					<StyledTouchableHighlight
-						onPress={participant ? onStart : null}
+						onPress={participant ? onClick : null}
 						underlayColor={participant ? "lightgreen" : null}
 					>
-						<StyledLayout>
+						<StyledLayout warning={timeout}>
 							<TotalTime totalMillis={totalMillis} />
-							<Timer millis={count || millisPerUser} />
+							<Timer millis={participant ? count : millisPerUser} />
 							<RangeSlider
 								onSliderChange={onSliderChange}
 								hidden={started}
 								value={millisPerUser}
 							/>
-							{!started && <StartButton onPress={onStart} />}
+							{!started && <StartButton onPress={onClick} />}
 							<TapToStart centered>
 								{started ? `Participant ${participant}` : "Tap to start"}
 							</TapToStart>

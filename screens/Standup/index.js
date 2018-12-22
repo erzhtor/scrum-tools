@@ -17,20 +17,41 @@ export default class StandupScreen extends React.Component {
 		totalMillis: 0
 	};
 
-	onStart() {
+	onClick() {
 		const { participant, millisPerUser } = this.state;
-		this.setState({ participant: participant + 1, count: millisPerUser });
+		this.setState({
+			participant: participant + 1,
+			count: millisPerUser,
+			timeout: false
+		});
 	}
 
 	onInterval() {
-		const { totalMillis, count, participant } = this.state;
+		const {
+			totalMillis,
+			count,
+			participant,
+			timeouts = 0,
+			timeout = false
+		} = this.state;
 
 		this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
+
 		if (!participant) {
 			return;
 		}
 
-		this.setState({ count: count - INTERVAL_IN_MILLIS });
+		if (timeout) {
+			return;
+		}
+
+		let newCount = count - INTERVAL_IN_MILLIS;
+		if (newCount < 0) {
+			newCount = 0;
+			this.setState({ timeouts: timeouts + 1, timeout: true });
+		}
+
+		this.setState({ count: newCount });
 	}
 
 	onSliderChange(value) {
@@ -43,7 +64,14 @@ export default class StandupScreen extends React.Component {
 	}
 
 	render() {
-		const { participant, millisPerUser, count, totalMillis } = this.state;
+		const {
+			participant,
+			millisPerUser,
+			count,
+			totalMillis,
+			timeouts,
+			timeout
+		} = this.state;
 		return (
 			<StandupContext.Provider
 				value={{
@@ -51,7 +79,9 @@ export default class StandupScreen extends React.Component {
 					participant,
 					count,
 					millisPerUser,
-					onStart: this.onStart.bind(this),
+					timeouts,
+					timeout,
+					onClick: this.onClick.bind(this),
 					onStop: this.onStop.bind(this),
 					onSliderChange: this.onSliderChange.bind(this)
 				}}
@@ -62,7 +92,7 @@ export default class StandupScreen extends React.Component {
 					callback={this.onInterval.bind(this)}
 				/>
 				<Swiper
-					loop={false}
+					// loop={false}
 					showsPagination={false}
 					ref={component => (this.swiper = component)}
 				>
