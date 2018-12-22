@@ -17,7 +17,7 @@ export default class StandupScreen extends React.Component {
 		totalMillis: 0
 	};
 
-	onTap() {
+	onStart() {
 		const { participant, millisPerUser } = this.state;
 		this.setState({ participant: participant + 1, count: millisPerUser });
 	}
@@ -37,6 +37,11 @@ export default class StandupScreen extends React.Component {
 		this.setState({ millisPerUser: value });
 	}
 
+	onStop() {
+		this.setState({ participant: 0, count: 0 });
+		this.swiper.scrollBy(-1, true);
+	}
+
 	render() {
 		const { participant, millisPerUser, count, totalMillis } = this.state;
 		return (
@@ -46,7 +51,8 @@ export default class StandupScreen extends React.Component {
 					participant,
 					count,
 					millisPerUser,
-					onStart: this.onTap.bind(this),
+					onStart: this.onStart.bind(this),
+					onStop: this.onStop.bind(this),
 					onSliderChange: this.onSliderChange.bind(this)
 				}}
 			>
@@ -55,7 +61,11 @@ export default class StandupScreen extends React.Component {
 					enabled={true}
 					callback={this.onInterval.bind(this)}
 				/>
-				<Swiper loop={false} showsPagination={false}>
+				<Swiper
+					loop={false}
+					showsPagination={false}
+					ref={component => (this.swiper = component)}
+				>
 					<TimerScreen started={!!participant} />
 					<ReportScreen />
 				</Swiper>

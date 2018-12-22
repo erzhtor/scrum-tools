@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { StText } from "../../components";
 import styled from "styled-components/native";
+
+import { StText } from "../../components";
+import { StopButton } from "./components";
+import { StandupContext } from "./context";
 
 const StyledContainer = styled(View)`
 	flex: 1;
@@ -18,9 +21,14 @@ const StyledHeader = styled(StText)`
 export class ReportScreen extends Component {
 	render() {
 		return (
-			<StyledContainer>
-				<StyledHeader>Today</StyledHeader>
-			</StyledContainer>
+			<StandupContext.Consumer>
+				{({ onStop }) => (
+					<StyledContainer>
+						<StyledHeader>Today</StyledHeader>
+						<StopButton onPress={onStop} />
+					</StyledContainer>
+				)}
+			</StandupContext.Consumer>
 		);
 	}
 }
