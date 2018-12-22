@@ -17,7 +17,7 @@ const StyledTouchableOpacity = styled(TouchableOpacity)`
 export const StartButton = props => {
 	return (
 		<StyledTouchableOpacity {...props}>
-			<StyledImage source={require("../../assets/images/btn-start.png")} />
+			<StyledImage source={require("../../../assets/images/btn-start.png")} />
 		</StyledTouchableOpacity>
 	);
 };

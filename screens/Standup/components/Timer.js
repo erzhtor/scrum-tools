@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { StText } from "../../components/StText";
+import { StText } from "../../../components/StText";
+import { formatMillisToTime } from "../lib/format-millis-to-time";
 
 const StyledText = styled(StText)`
 	font-size: 72;
@@ -9,4 +10,6 @@ const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.primary};
 `;
 
-export const Timer = ({ children }) => <StyledText>{children}</StyledText>;
+export const Timer = ({ millis }) => (
+	<StyledText>{formatMillisToTime(millis)}</StyledText>
+);

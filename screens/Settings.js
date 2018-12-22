@@ -1,8 +1,7 @@
 import React from "react";
-import { View, ScrollView, Button } from "react-native";
+import { View, ScrollView } from "react-native";
 import styled from "styled-components/native";
-import { StText } from "../components/StText";
-import { StButton } from "../components/StButton";
+import { StButton, StText } from "../components";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};

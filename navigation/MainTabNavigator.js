@@ -8,8 +8,7 @@ import styled from "styled-components";
 import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
-import { TabBarIcon } from "../components/TabBarIcon";
-import { StText } from "../components/StText";
+import { StText, TabBarIcon } from "../components";
 
 const StyledTabBarLabel = styled(StText)`
 	font-family: "Slim Joe";

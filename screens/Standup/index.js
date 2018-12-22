@@ -1,51 +1,10 @@
 import React from "react";
-import { TouchableHighlight, View } from "react-native";
-import Slider from "react-native-slider";
-import styled from "styled-components/native";
 import ReactInterval from "react-interval";
-
-import { formatMillisToTime } from "./lib/format-millis-to-time";
-import Constants from "../../constants/Layout";
-import { Timer } from "./Timer";
-import { MILLIS_IN_SECOND, INTERVAL_IN_MILLIS } from "./constants";
-import { TotalTime } from "./TotalTime";
-import { StText } from "../../components/StText";
-import { StartButton } from "./StartButton";
-
-const StyledTouchableHighlight = styled(TouchableHighlight)`
-	flex: 1;
-`;
-
-const StyledLayout = styled(View)`
-	flex: 1;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	background: ${({ theme }) => theme.color.bg};
-`;
-
-const StyledSlider = styled(Slider)`
-	${({ hidden }) => (hidden ? "opacity: 0;" : "")};
-`;
-
-const StyledRangeContainer = styled(View)`
-	width: ${Constants.window.width};
-	padding: 20px;
-`;
-
-const StyledTimeContainer = styled(View)`
-	align-items: center;
-`;
-
-const StyledTapToStartContainer = styled(View)`
-	padding: 30px;
-`;
-
-const TapToStart = styled(StText)`
-	font-size: 12px;
-	text-align: center;
-	color: ${({ theme }) => theme.color.secondary};
-`;
+import Swiper from "react-native-swiper";
+import { INTERVAL_IN_MILLIS, MILLIS_IN_SECOND } from "./constants";
+import { StandupContext } from "./context";
+import { ReportScreen } from "./ReportScreen";
+import { TimerScreen } from "./TimerScreen";
 
 export default class StandupScreen extends React.Component {
 	static navigationOptions = {
@@ -74,44 +33,33 @@ export default class StandupScreen extends React.Component {
 		this.setState({ count: count - INTERVAL_IN_MILLIS });
 	}
 
+	onSliderChange(value) {
+		this.setState({ millisPerUser: value });
+	}
+
 	render() {
 		const { participant, millisPerUser, count, totalMillis } = this.state;
 		return (
-			<StyledTouchableHighlight
-				onPress={participant ? this.onTap.bind(this) : null}
-				underlayColor={participant ? "lightgreen" : null}
+			<StandupContext.Provider
+				value={{
+					totalMillis,
+					participant,
+					count,
+					millisPerUser,
+					onStart: this.onTap.bind(this),
+					onSliderChange: this.onSliderChange.bind(this)
+				}}
 			>
-				<StyledLayout>
-					<ReactInterval
-						timeout={INTERVAL_IN_MILLIS}
-						enabled={true}
-						callback={this.onInterval.bind(this)}
-					/>
-					<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
-					<StyledTimeContainer>
-						<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
-						<StyledRangeContainer>
-							<StyledSlider
-								hidden={!!participant}
-								value={this.state.millisPerUser}
-								onValueChange={value => this.setState({ millisPerUser: value })}
-								minimumValue={0}
-								maximumValue={300 * MILLIS_IN_SECOND}
-								step={10 * MILLIS_IN_SECOND}
-								minimumTrackTintColor="red"
-								maximumTrackTintColor="white"
-								thumbTintColor="white"
-							/>
-						</StyledRangeContainer>
-					</StyledTimeContainer>
-					<StyledTapToStartContainer>
-						{!participant && <StartButton onPress={this.onTap.bind(this)} />}
-						<TapToStart>
-							{!participant ? "Tap to start" : `Participant ${participant}`}
-						</TapToStart>
-					</StyledTapToStartContainer>
-				</StyledLayout>
-			</StyledTouchableHighlight>
+				<ReactInterval
+					timeout={INTERVAL_IN_MILLIS}
+					enabled={true}
+					callback={this.onInterval.bind(this)}
+				/>
+				<Swiper loop={false} showsPagination={false}>
+					<TimerScreen started={!!participant} />
+					<ReportScreen />
+				</Swiper>
+			</StandupContext.Provider>
 		);
 	}
 }
