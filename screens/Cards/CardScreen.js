@@ -11,7 +11,7 @@ const StyledButton = styled(TouchableOpacity)`
 `;
 
 const LargeCard = styled(StText)`
-	font-size: 200;
+	font-size: 180;
 	color: ${({ theme }) => theme.color.primary};
 `;
 

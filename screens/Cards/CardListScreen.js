@@ -1,11 +1,21 @@
 import React from "react";
 import { Card } from "./components";
+import { AppContext } from "../../context";
 
-const STANDARD_CARDS = ["0", "1/2", 1, 2, 3, 5, 8, 13, 20, 40, "?"];
-
-export const CardListScreen = ({ onItemClick }) =>
-	STANDARD_CARDS.map(item => (
-		<Card key={item} onPress={() => onItemClick(item)}>
-			{item}
-		</Card>
-	));
+export class CardListScreen extends React.Component {
+	render() {
+		return (
+			<AppContext.Consumer>
+				{({ cards }) => (
+					<React.Fragment>
+						{[...cards, "?"].map(item => (
+							<Card key={item} onPress={() => this.props.onItemClick(item)}>
+								{item}
+							</Card>
+						))}
+					</React.Fragment>
+				)}
+			</AppContext.Consumer>
+		);
+	}
+}

@@ -2,9 +2,13 @@ import React from "react";
 import { Platform, StatusBar, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import styled, { ThemeProvider } from "styled-components/native";
-import DefaultTheme from "./themes/default";
 
+import DefaultTheme from "./themes/default";
 import AppNavigator from "./navigation/AppNavigator";
+import { AppContext } from "./context";
+import { getCardPattern, setCardPattern } from "./lib/storage";
+import { Cards } from "./constants";
+import { StSpinner } from "./components";
 
 const StyledLayout = styled(View)`
 	flex: 1;
@@ -13,11 +17,31 @@ const StyledLayout = styled(View)`
 
 export default class App extends React.Component {
 	state = {
-		isLoadingComplete: false
+		isLoadingComplete: false,
+		loading: true
 	};
 
+	async componentDidMount() {
+		const cardPattern = await getCardPattern();
+		this.setState({
+			loading: false
+		});
+		this.onCardPatternChange(cardPattern);
+	}
+
+	async onCardPatternChange(value) {
+		const cardKey = Object.keys(Cards).find(key => Cards[key].name === value);
+
+		this.setState({
+			cards: Cards[cardKey].value,
+			cardPattern: value
+		});
+		await setCardPattern(value);
+	}
+
 	render() {
-		if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+		const { isLoadingComplete, loading, cards, cardPattern } = this.state;
+		if (!isLoadingComplete && !this.props.skipLoadingScreen) {
 			return (
 				<AppLoading
 					startAsync={this._loadResourcesAsync}
@@ -28,10 +52,19 @@ export default class App extends React.Component {
 		} else {
 			return (
 				<ThemeProvider theme={DefaultTheme}>
-					<StyledLayout>
-						{Platform.OS === "ios" && <StatusBar barStyle="default" />}
-						<AppNavigator />
-					</StyledLayout>
+					<AppContext.Provider
+						value={{
+							cards,
+							cardPattern,
+							onCardPatternChange: this.onCardPatternChange.bind(this)
+						}}
+					>
+						<StyledLayout>
+							{Platform.OS === "ios" && <StatusBar barStyle="default" />}
+							{!loading && <AppNavigator />}
+							{loading && <StSpinner />}
+						</StyledLayout>
+					</AppContext.Provider>
 				</ThemeProvider>
 			);
 		}

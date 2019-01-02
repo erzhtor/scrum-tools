@@ -16,7 +16,7 @@ const StyledCard = styled(TouchableOpacity)`
 
 const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.bg};
-	font-size: 42px;
+	font-size: 36px;
 `;
 
 export const Card = ({ children, ...rest }) => {
