@@ -5,7 +5,7 @@ import { StText } from "./StText";
 
 const StyledButton = styled(TouchableOpacity)`
 	background: ${({ theme, light }) =>
-		light ? theme.color.primary : theme.color.bg};
+		light ? theme.color.light : theme.color.dark};
 	align-items: center;
 	padding: 10px;
 	justify-content: center;
@@ -20,7 +20,7 @@ const StyledView = styled(View)`
 
 const StyledText = styled(StText)`
 	color: ${({ theme, light }) =>
-		light ? theme.color.primary : theme.color.bg};
+		light ? theme.color.light : theme.color.dark};
 `;
 
 export const StButton = ({ children, light, selected, ...rest }) => {

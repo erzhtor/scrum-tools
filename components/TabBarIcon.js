@@ -7,7 +7,7 @@ const StyledImage = styled(Image)`
 	height: 40px;
 	resize-mode: contain;
 	tint-color: ${({ focused, theme }) =>
-		focused ? theme.color.primary : theme.color.secondary};
+		focused ? theme.color.tabIconFocused : theme.color.tabIcon};
 `;
 
 const iconStandup = require("../assets/images/icon-standup.png");
