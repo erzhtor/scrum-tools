@@ -11,14 +11,15 @@ const StyledButton = styled(TouchableOpacity)`
 `;
 
 const LargeCard = styled(StText)`
-	font-size: 180;
 	color: ${({ theme }) => theme.color.primary};
 `;
 
 export const CardScreen = ({ children, ...rest }) => {
 	return (
 		<StyledButton {...rest}>
-			<LargeCard centered>{children}</LargeCard>
+			<LargeCard fontSize={140} centered>
+				{children}
+			</LargeCard>
 		</StyledButton>
 	);
 };

@@ -28,7 +28,6 @@ const TapToStart = styled(StText)`
 
 export class TimerScreen extends Component {
 	render() {
-		const { started } = this.props;
 		return (
 			<StandupContext.Consumer>
 				{({
@@ -37,7 +36,9 @@ export class TimerScreen extends Component {
 					participant,
 					count,
 					timeout,
+					started,
 					onClick,
+					onStart,
 					onSliderChange
 				}) => (
 					<StyledTouchableHighlight
@@ -45,14 +46,14 @@ export class TimerScreen extends Component {
 						underlayColor={participant ? "lightgreen" : null}
 					>
 						<StyledLayout warning={timeout}>
-							<TotalTime totalMillis={totalMillis} />
-							<Timer millis={participant ? count : millisPerUser} />
+							<TotalTime totalMillis={started ? totalMillis : 0} />
+							<Timer millis={started ? count : millisPerUser} />
 							<RangeSlider
 								onSliderChange={onSliderChange}
 								hidden={started}
 								value={millisPerUser}
 							/>
-							{!started && <StartButton onPress={onClick} />}
+							{!started && <StartButton onPress={onStart} />}
 							<TapToStart centered>
 								{started ? `Participant ${participant}` : "Tap to start"}
 							</TapToStart>

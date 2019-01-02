@@ -14,7 +14,8 @@ export default class StandupScreen extends React.Component {
 	state = {
 		millisPerUser: 120 * MILLIS_IN_SECOND,
 		participant: 0,
-		totalMillis: 0
+		totalMillis: 0,
+		started: false
 	};
 
 	onClick() {
@@ -27,19 +28,9 @@ export default class StandupScreen extends React.Component {
 	}
 
 	onInterval() {
-		const {
-			totalMillis,
-			count,
-			participant,
-			timeouts = 0,
-			timeout = false
-		} = this.state;
+		const { totalMillis, count, timeouts = 0, timeout = false } = this.state;
 
 		this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
-
-		if (!participant) {
-			return;
-		}
 
 		if (timeout) {
 			return;
@@ -59,8 +50,17 @@ export default class StandupScreen extends React.Component {
 	}
 
 	onStop() {
-		this.setState({ participant: 0, count: 0 });
-		this.swiper.scrollBy(-1, true);
+		this.setState({ started: false, timeout: false });
+	}
+
+	onStart() {
+		this.setState({
+			participant: 1,
+			started: true,
+			timeouts: 0,
+			totalMillis: 0,
+			count: this.state.millisPerUser
+		});
 	}
 
 	render() {
@@ -70,7 +70,8 @@ export default class StandupScreen extends React.Component {
 			count,
 			totalMillis,
 			timeouts,
-			timeout
+			timeout,
+			started
 		} = this.state;
 		return (
 			<StandupContext.Provider
@@ -80,7 +81,9 @@ export default class StandupScreen extends React.Component {
 					count,
 					millisPerUser,
 					timeouts,
+					started,
 					timeout,
+					onStart: this.onStart.bind(this),
 					onClick: this.onClick.bind(this),
 					onStop: this.onStop.bind(this),
 					onSliderChange: this.onSliderChange.bind(this)
@@ -88,15 +91,15 @@ export default class StandupScreen extends React.Component {
 			>
 				<ReactInterval
 					timeout={INTERVAL_IN_MILLIS}
-					enabled={true}
+					enabled={started}
 					callback={this.onInterval.bind(this)}
 				/>
 				<Swiper
-					// loop={false}
+					loop={false}
 					showsPagination={false}
 					ref={component => (this.swiper = component)}
 				>
-					<TimerScreen started={!!participant} />
+					<TimerScreen />
 					<ReportScreen />
 				</Swiper>
 			</StandupContext.Provider>

@@ -22,7 +22,7 @@ const Range = ({ onSliderChange, value, hidden }) => {
 				hidden={hidden}
 				value={value}
 				onValueChange={onSliderChange}
-				minimumValue={0}
+				minimumValue={10 * MILLIS_IN_SECOND}
 				maximumValue={300 * MILLIS_IN_SECOND}
 				step={10 * MILLIS_IN_SECOND}
 				minimumTrackTintColor="red"

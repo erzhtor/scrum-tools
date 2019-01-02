@@ -53,8 +53,8 @@ export class ReportScreen extends Component {
 					participant = "0",
 					millisPerUser,
 					totalMillis,
-					preparationTime,
-					timeouts = "0"
+					timeouts = "0",
+					started
 				}) => {
 					const totalMillisStr = formatMillisToTime(totalMillis);
 					return (
@@ -64,16 +64,12 @@ export class ReportScreen extends Component {
 								<Tuple name="PARTICIPANTS" value={participant} />
 								<Tuple name="TIMEOUTS" value={timeouts} />
 								<Tuple
-									name="PREPARATION TIME"
-									value={preparationTime || totalMillisStr}
-								/>
-								<Tuple
 									name="TIME PER PARTICIPANT"
 									value={formatMillisToTime(millisPerUser)}
 								/>
 								<Tuple name="TOTAL TIME" value={totalMillisStr} />
 							</Table>
-							<StyledStopButton onPress={onStop} />
+							{started && <StyledStopButton onPress={onStop} />}
 						</StyledLayout>
 					);
 				}}
