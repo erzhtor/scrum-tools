@@ -3,8 +3,6 @@ import { Platform, StatusBar, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import styled, { ThemeProvider } from "styled-components/native";
 
-import DarkTheme from "./themes/dark";
-import LightTheme from "./themes/light";
 import AppNavigator from "./navigation/AppNavigator";
 import { AppContext } from "./context";
 import {
@@ -13,7 +11,7 @@ import {
 	setTheme,
 	getTheme
 } from "./lib/storage";
-import { Cards } from "./constants";
+import { Cards, DARK_THEME, LIGHT_THEME } from "./constants";
 import { StSpinner } from "./components";
 import { THEME_DARK } from "./screens/Standup/constants";
 
@@ -100,7 +98,7 @@ export default class App extends React.Component {
 					}}
 				>
 					<ThemeProvider
-						theme={themeKey === THEME_DARK ? DarkTheme : LightTheme}
+						theme={themeKey === THEME_DARK ? DARK_THEME : LIGHT_THEME}
 					>
 						<StyledLayout>
 							{Platform.OS === "ios" && <StatusBar barStyle="default" />}

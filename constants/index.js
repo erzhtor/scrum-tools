@@ -1,6 +1,6 @@
 export * from "./Colors";
-
 export * from "./Layout";
+export * from "./Themes";
 
 export const Cards = {
 	STANDARD: {
