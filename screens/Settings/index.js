@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 
 import { StButton, StText } from "../../components";
 import { CardsPattern } from "./CardsPattern";
+import { THEME_DARK, THEME_LIGHT } from "../Standup/constants";
+import { AppContext } from "../../context";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -56,25 +58,40 @@ export default class SettingsScreen extends React.Component {
 	render() {
 		return (
 			<ScrollView contentContainerStyle={{ justifyContent: "center", flex: 1 }}>
-				<StyledLayout>
-					<StyledSection>
-						<CardsPattern />
-					</StyledSection>
-					<StyledBorder />
-					<StyledSection>
-						<StyledButton selected>Dark Theme</StyledButton>
-						<StyledButton light>Light Theme</StyledButton>
-					</StyledSection>
-					<StyledBorder />
-					<StyledSection>
-						<StyledText centered fontSize={18}>
-							About
-						</StyledText>
-						<StyledText centered fontSize={18}>
-							Donate
-						</StyledText>
-					</StyledSection>
-				</StyledLayout>
+				<AppContext.Consumer>
+					{({ onThemeChange, themeKey }) => (
+						<StyledLayout>
+							<StyledSection>
+								<CardsPattern />
+							</StyledSection>
+							<StyledBorder />
+							<StyledSection>
+								<StyledButton
+									selected={themeKey === THEME_DARK}
+									onPress={() => onThemeChange(THEME_DARK)}
+								>
+									Dark Theme
+								</StyledButton>
+								<StyledButton
+									selected={themeKey === THEME_LIGHT}
+									light
+									onPress={() => onThemeChange(THEME_LIGHT)}
+								>
+									Light Theme
+								</StyledButton>
+							</StyledSection>
+							<StyledBorder />
+							<StyledSection>
+								<StyledText centered fontSize={18}>
+									About
+								</StyledText>
+								<StyledText centered fontSize={18}>
+									Donate
+								</StyledText>
+							</StyledSection>
+						</StyledLayout>
+					)}
+				</AppContext.Consumer>
 			</ScrollView>
 		);
 	}

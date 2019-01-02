@@ -3,12 +3,19 @@ import { Platform, StatusBar, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import styled, { ThemeProvider } from "styled-components/native";
 
-import DefaultTheme from "./themes/default";
+import DarkTheme from "./themes/dark";
+import LightTheme from "./themes/light";
 import AppNavigator from "./navigation/AppNavigator";
 import { AppContext } from "./context";
-import { getCardPattern, setCardPattern } from "./lib/storage";
+import {
+	getCardPattern,
+	setCardPattern,
+	setTheme,
+	getTheme
+} from "./lib/storage";
 import { Cards } from "./constants";
 import { StSpinner } from "./components";
+import { THEME_DARK } from "./screens/Standup/constants";
 
 const StyledLayout = styled(View)`
 	flex: 1;
@@ -16,17 +23,36 @@ const StyledLayout = styled(View)`
 `;
 
 export default class App extends React.Component {
-	state = {
-		isLoadingComplete: false,
-		loading: true
-	};
+	constructor(props) {
+		super(props);
+		this.initCards = this.initCards.bind(this);
+		this.initTheme = this.initTheme.bind(this);
+		this.onCardPatternChange = this.onCardPatternChange.bind(this);
+		this.onThemeChange = this.onThemeChange.bind(this);
+		this.state = {
+			isLoadingComplete: false,
+			loading: true
+		};
+	}
 
 	async componentDidMount() {
+		await this.initCards();
+		await this.initTheme();
+	}
+
+	async initCards() {
 		const cardPattern = await getCardPattern();
 		this.setState({
 			loading: false
 		});
 		this.onCardPatternChange(cardPattern);
+	}
+
+	async initTheme() {
+		const themeKey = await getTheme();
+		this.setState({
+			themeKey
+		});
 	}
 
 	async onCardPatternChange(value) {
@@ -39,8 +65,21 @@ export default class App extends React.Component {
 		await setCardPattern(value);
 	}
 
+	async onThemeChange(value) {
+		this.setState({
+			themeKey: value
+		});
+		await setTheme(value);
+	}
+
 	render() {
-		const { isLoadingComplete, loading, cards, cardPattern } = this.state;
+		const {
+			isLoadingComplete,
+			loading,
+			cards,
+			cardPattern,
+			themeKey
+		} = this.state;
 		if (!isLoadingComplete && !this.props.skipLoadingScreen) {
 			return (
 				<AppLoading
@@ -51,21 +90,25 @@ export default class App extends React.Component {
 			);
 		} else {
 			return (
-				<ThemeProvider theme={DefaultTheme}>
-					<AppContext.Provider
-						value={{
-							cards,
-							cardPattern,
-							onCardPatternChange: this.onCardPatternChange.bind(this)
-						}}
+				<AppContext.Provider
+					value={{
+						cards,
+						cardPattern,
+						onCardPatternChange: this.onCardPatternChange,
+						themeKey,
+						onThemeChange: this.onThemeChange
+					}}
+				>
+					<ThemeProvider
+						theme={themeKey === THEME_DARK ? DarkTheme : LightTheme}
 					>
 						<StyledLayout>
 							{Platform.OS === "ios" && <StatusBar barStyle="default" />}
 							{!loading && <AppNavigator />}
 							{loading && <StSpinner />}
 						</StyledLayout>
-					</AppContext.Provider>
-				</ThemeProvider>
+					</ThemeProvider>
+				</AppContext.Provider>
 			);
 		}
 	}

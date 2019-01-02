@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-native-slider";
-import styled from "styled-components/native";
+import styled, { withTheme } from "styled-components/native";
 import { View } from "react-native";
 
 import { MILLIS_IN_SECOND } from "../constants";
@@ -15,7 +15,7 @@ const StyledRangeContainer = styled(View)`
 	padding: 20px;
 `;
 
-const Range = ({ onSliderChange, value, hidden }) => {
+const Range = ({ onSliderChange, value, hidden, theme }) => {
 	return (
 		<StyledRangeContainer>
 			<StyledSlider
@@ -26,11 +26,11 @@ const Range = ({ onSliderChange, value, hidden }) => {
 				maximumValue={300 * MILLIS_IN_SECOND}
 				step={10 * MILLIS_IN_SECOND}
 				minimumTrackTintColor="red"
-				maximumTrackTintColor="white"
-				thumbTintColor="white"
+				maximumTrackTintColor={theme.color.sliderColor}
+				thumbTintColor={theme.color.sliderColor}
 			/>
 		</StyledRangeContainer>
 	);
 };
 
-export default Range;
+export default withTheme(Range);
