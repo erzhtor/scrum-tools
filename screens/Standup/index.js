@@ -4,7 +4,7 @@ import Swiper from "react-native-swiper";
 import { INTERVAL_IN_MILLIS, MILLIS_IN_SECOND } from "./constants";
 import { StandupContext } from "./context";
 import { ReportScreen } from "./ReportScreen";
-import { TimerScreen } from "./TimerScreen";
+import TimerScreen from "./TimerScreen";
 
 export default class StandupScreen extends React.Component {
 	static navigationOptions = {

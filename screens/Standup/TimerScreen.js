@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TouchableHighlight, View } from "react-native";
-import styled from "styled-components/native";
+import styled, { withTheme } from "styled-components/native";
 
 import { StandupContext } from "./context";
 import { StText } from "../../components";
@@ -27,41 +27,46 @@ const TapToStart = styled(StText)`
 	color: ${({ theme }) => theme.color.secondary};
 `;
 
-export class TimerScreen extends Component {
-	render() {
-		return (
-			<StandupContext.Consumer>
-				{({
-					totalMillis,
-					millisPerUser,
-					participant,
-					count,
-					timeout,
-					started,
-					onClick,
-					onStart,
-					onSliderChange
-				}) => (
-					<StyledTouchableHighlight
-						onPress={participant ? onClick : null}
-						underlayColor={participant ? "lightgreen" : null}
-					>
-						<StyledLayout warning={timeout}>
-							<TotalTime totalMillis={started ? totalMillis : 0} />
-							<Timer millis={started ? count : millisPerUser} />
-							<RangeSlider
-								onSliderChange={onSliderChange}
-								hidden={started}
-								value={millisPerUser}
-							/>
-							{!started && <StartButton onPress={onStart} />}
-							<TapToStart centered>
-								{started ? `Participant ${participant}` : "Tap to start"}
-							</TapToStart>
-						</StyledLayout>
-					</StyledTouchableHighlight>
-				)}
-			</StandupContext.Consumer>
-		);
+export default withTheme(
+	class TimerScreen extends Component {
+		render() {
+			return (
+				<StandupContext.Consumer>
+					{({
+						totalMillis,
+						millisPerUser,
+						participant,
+						count,
+						timeout,
+						started,
+						onClick,
+						onStart,
+						onSliderChange
+					}) => (
+						<StyledTouchableHighlight
+							onPress={started ? onClick : null}
+							underlayColor={
+								started ? this.props.theme.color.underlayColor : null
+							}
+							activeOpacity={0.5}
+						>
+							<StyledLayout warning={timeout}>
+								<TotalTime totalMillis={started ? totalMillis : 0} />
+								<Timer millis={started ? count : millisPerUser} />
+								<RangeSlider
+									onSliderChange={onSliderChange}
+									hidden={started}
+									value={millisPerUser}
+								/>
+								{!started && <StartButton onPress={onStart} />}
+								<TapToStart centered>
+									{started ? `Participant ${participant}` : "Tap to start"}
+								</TapToStart>
+							</StyledLayout>
+						</StyledTouchableHighlight>
+					)}
+				</StandupContext.Consumer>
+			);
+		}
 	}
-}
+);
