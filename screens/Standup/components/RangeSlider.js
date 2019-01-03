@@ -3,7 +3,7 @@ import Slider from "react-native-slider";
 import styled, { withTheme } from "styled-components/native";
 import { View } from "react-native";
 
-import { MILLIS_IN_SECOND } from "../constants";
+import { MILLIS_IN_SECOND } from "../../../constants";
 import Constants from "../../../constants/Layout";
 
 const StyledSlider = styled(Slider)`

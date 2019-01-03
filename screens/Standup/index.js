@@ -1,10 +1,12 @@
 import React from "react";
-import ReactInterval from "react-interval";
 import Swiper from "react-native-swiper";
-import { INTERVAL_IN_MILLIS, MILLIS_IN_SECOND } from "./constants";
+import { MILLIS_IN_SECOND } from "../../constants";
 import { StandupContext } from "./context";
 import { ReportScreen } from "./ReportScreen";
 import TimerScreen from "./TimerScreen";
+
+const INTERVAL_IN_MILLIS = 350;
+let interval;
 
 export default class StandupScreen extends React.Component {
 	static navigationOptions = {
@@ -36,13 +38,12 @@ export default class StandupScreen extends React.Component {
 			return;
 		}
 
-		let newCount = count - INTERVAL_IN_MILLIS;
+		const newCount = count - INTERVAL_IN_MILLIS;
 		if (newCount < 0) {
-			newCount = 0;
-			this.setState({ timeouts: timeouts + 1, timeout: true });
+			this.setState({ timeouts: timeouts + 1, timeout: true, count: 0 });
+		} else {
+			this.setState({ count: newCount });
 		}
-
-		this.setState({ count: newCount });
 	}
 
 	onSliderChange(value) {
@@ -51,9 +52,13 @@ export default class StandupScreen extends React.Component {
 
 	onStop() {
 		this.setState({ started: false, timeout: false });
+		clearInterval(interval);
 	}
 
 	onStart() {
+		clearInterval(interval);
+		interval = setInterval(this.onInterval.bind(this), INTERVAL_IN_MILLIS);
+
 		this.setState({
 			participant: 1,
 			started: true,
@@ -61,6 +66,10 @@ export default class StandupScreen extends React.Component {
 			totalMillis: 0,
 			count: this.state.millisPerUser
 		});
+	}
+
+	componentWillUnmount() {
+		this.onStop();
 	}
 
 	render() {
@@ -89,11 +98,11 @@ export default class StandupScreen extends React.Component {
 					onSliderChange: this.onSliderChange.bind(this)
 				}}
 			>
-				<ReactInterval
+				{/* <ReactInterval
 					timeout={INTERVAL_IN_MILLIS}
 					enabled={started}
 					callback={this.onInterval.bind(this)}
-				/>
+				/> */}
 				<Swiper
 					loop={false}
 					showsPagination={false}

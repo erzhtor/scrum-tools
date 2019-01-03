@@ -5,7 +5,7 @@ const COMMON_COLORS = {
 	bgWarning: "#c92a2a"
 };
 
-export const DARK_THEME = {
+export const DarkTheme = {
 	color: {
 		bg: "#131C2D",
 		secondary: "#777575",
@@ -19,7 +19,7 @@ export const DARK_THEME = {
 	}
 };
 
-export const LIGHT_THEME = {
+export const LightTheme = {
 	color: {
 		bg: "#FFFFFF",
 		secondary: "#777575",

@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 import { StButton, StText } from "../../components";
 import { CardsPattern } from "./CardsPattern";
-import { THEME_DARK, THEME_LIGHT } from "../Standup/constants";
+import { THEME_DARK, THEME_LIGHT } from "../../constants";
 import { AppContext } from "../../context";
 
 const StyledLayout = styled(View)`

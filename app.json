@@ -17,11 +17,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.erzhtor.scrumtools"
+    },
+    "android": {
+      "package": "com.erzhtor.scrumtools"
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

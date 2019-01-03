@@ -11,9 +11,8 @@ import {
 	setTheme,
 	getTheme
 } from "./lib/storage";
-import { Cards, DARK_THEME, LIGHT_THEME } from "./constants";
+import { Cards, DarkTheme, LightTheme, THEME_DARK } from "./constants";
 import { StSpinner } from "./components";
-import { THEME_DARK } from "./screens/Standup/constants";
 
 const StyledLayout = styled(View)`
 	flex: 1;
@@ -98,7 +97,7 @@ export default class App extends React.Component {
 					}}
 				>
 					<ThemeProvider
-						theme={themeKey === THEME_DARK ? DARK_THEME : LIGHT_THEME}
+						theme={themeKey === THEME_DARK ? DarkTheme : LightTheme}
 					>
 						<StyledLayout>
 							{Platform.OS === "ios" && <StatusBar barStyle="default" />}

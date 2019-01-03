@@ -19,3 +19,7 @@ export const Cards = {
 
 export const QUESTION_CARD = "?";
 export const INFINITY_CARD = "∞";
+
+export const THEME_DARK = "THEME_DARK";
+export const THEME_LIGHT = "THEME_LIGHT";
+export const MILLIS_IN_SECOND = 1000;
