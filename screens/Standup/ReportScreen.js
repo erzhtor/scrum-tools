@@ -9,8 +9,9 @@ import { formatMillisToTime } from "./lib/format-millis-to-time";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
-	flex: 1;
 	padding: 20px;
+	flex: 1;
+	justify-content: flex-start;
 `;
 
 const StyledHeader = styled(StText)`
@@ -30,7 +31,7 @@ const StyledValueText = styled(StText)`
 `;
 
 const StyledStopButton = styled(StopButton)`
-	flex: 1;
+	flex: 0.5;
 `;
 
 const Tuple = ({ name, value }) => (
@@ -43,6 +44,10 @@ const Tuple = ({ name, value }) => (
 		</Table.Item>
 	</Table.Row>
 );
+
+const StyledTable = styled(Table)`
+	padding-bottom: 50px;
+`;
 
 export class ReportScreen extends Component {
 	render() {
@@ -60,7 +65,7 @@ export class ReportScreen extends Component {
 					return (
 						<StyledLayout>
 							<StyledHeader centered>Today</StyledHeader>
-							<Table>
+							<StyledTable>
 								<Tuple name="PARTICIPANTS" value={participant} />
 								<Tuple name="TIMEOUTS" value={timeouts} />
 								<Tuple
@@ -68,7 +73,7 @@ export class ReportScreen extends Component {
 									value={formatMillisToTime(millisPerUser)}
 								/>
 								<Tuple name="TOTAL TIME" value={totalMillisStr} />
-							</Table>
+							</StyledTable>
 							{started && <StyledStopButton onPress={onStop} />}
 						</StyledLayout>
 					);

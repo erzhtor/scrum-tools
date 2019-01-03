@@ -14,7 +14,7 @@ const StyledTouchableHighlight = styled(TouchableHighlight)`
 const StyledLayout = styled(View)`
 	flex: 1;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	background: ${({ theme, warning }) =>
 		warning ? theme.color.bgWarning : theme.color.bg};
@@ -23,6 +23,7 @@ const StyledLayout = styled(View)`
 
 const TapToStart = styled(StText)`
 	font-size: 12px;
+	flex: 1;
 	color: ${({ theme }) => theme.color.secondary};
 `;
 

@@ -9,6 +9,8 @@ const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.primary};
 `;
 
-export const Timer = ({ millis }) => (
-	<StyledText centered>{formatMillisToTime(millis)}</StyledText>
+export const Timer = ({ millis, ...rest }) => (
+	<StyledText centered {...rest}>
+		{formatMillisToTime(millis)}
+	</StyledText>
 );

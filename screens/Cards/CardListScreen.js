@@ -1,15 +1,17 @@
 import React from "react";
 import { Card } from "./components";
 import { AppContext } from "../../context";
+import { QUESTION_CARD, INFINITY_CARD } from "../../constants";
 
 export class CardListScreen extends React.Component {
 	render() {
+		const { onItemClick } = this.props;
 		return (
 			<AppContext.Consumer>
 				{({ cards }) => (
 					<React.Fragment>
-						{[...cards, "?"].map(item => (
-							<Card key={item} onPress={() => this.props.onItemClick(item)}>
+						{[...cards, QUESTION_CARD, INFINITY_CARD].map(item => (
+							<Card key={item} onPress={() => onItemClick(item)}>
 								{item}
 							</Card>
 						))}

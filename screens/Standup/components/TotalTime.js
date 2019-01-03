@@ -7,6 +7,7 @@ const StyledText = styled(StText)`
 	padding-top: 30;
 	color: ${({ theme }) => theme.color.secondary};
 	font-size: 14px;
+	flex: 1;
 `;
 
 export const TotalTime = ({ totalMillis }) => (
