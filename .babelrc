@@ -1,11 +1,4 @@
 {
   "presets": ["babel-preset-expo"],
-  "plugins": [
-    "styled-components"
-  ],
-  "env": {
-    "development": {
-      "plugins": ["transform-react-jsx-source"]
-    }
-  }
+  "plugins": ["styled-components"]
 }
