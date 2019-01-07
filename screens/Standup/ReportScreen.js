@@ -6,6 +6,7 @@ import { StText } from "../../components";
 import { StandupContext } from "./context";
 import { StopButton, Table } from "./components";
 import { formatMillisToTime } from "./lib/format-millis-to-time";
+import { THEME_LIGHT } from "../../constants";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -54,7 +55,6 @@ export class ReportScreen extends Component {
 		return (
 			<StandupContext.Consumer>
 				{({
-					onStop,
 					participant = "0",
 					millisPerUser,
 					totalMillis,
@@ -74,7 +74,7 @@ export class ReportScreen extends Component {
 								/>
 								<Tuple name="TOTAL TIME" value={totalMillisStr} />
 							</StyledTable>
-							{started && <StyledStopButton onPress={onStop} />}
+							{started && <StyledStopButton onPress={this.props.onStop} />}
 						</StyledLayout>
 					);
 				}}

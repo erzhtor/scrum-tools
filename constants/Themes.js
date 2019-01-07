@@ -1,7 +1,7 @@
 const COMMON_COLORS = {
 	light: "#FFFFFF",
 	dark: "#131C2D",
-	underlayColor: "#03bc44",
+	underlayColor: "#2D3FDC",
 	bgWarning: "#c92a2a"
 };
 
@@ -16,7 +16,8 @@ export const DarkTheme = {
 		tabIconFocused: "#FFFFFF",
 		tabIcon: "#777575",
 		...COMMON_COLORS
-	}
+	},
+	name: "THEME_DARK"
 };
 
 export const LightTheme = {
@@ -30,5 +31,6 @@ export const LightTheme = {
 		tabIconFocused: "#151C28",
 		tabIcon: "#a3a1a1",
 		...COMMON_COLORS
-	}
+	},
+	name: "THEME_LIGHT"
 };

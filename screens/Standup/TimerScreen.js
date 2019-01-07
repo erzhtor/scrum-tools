@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TouchableHighlight, View } from "react-native";
 import styled, { withTheme } from "styled-components/native";
+import * as Animatable from "react-native-animatable";
 
 import { StandupContext } from "./context";
 import { StText } from "../../components";
@@ -21,15 +22,24 @@ const StyledLayout = styled(View)`
 	padding-bottom: 20px;
 `;
 
-const TapToStart = styled(StText)`
-	font-size: 12px;
-	flex: 1;
+const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.secondary};
 `;
 
 export default withTheme(
 	class TimerScreen extends Component {
+		handleTextRef = ref => (this.textContainer = ref);
+
+		onTap = () => {
+			this.props.onTap();
+			if (this.textContainer) {
+				this.textContainer.zoomIn(800);
+			}
+			console.log(this.props.theme);
+		};
+
 		render() {
+			const { onStart } = this.props;
 			return (
 				<StandupContext.Consumer>
 					{({
@@ -39,16 +49,14 @@ export default withTheme(
 						count,
 						timeout,
 						started,
-						onClick,
-						onStart,
 						onSliderChange
 					}) => (
 						<StyledTouchableHighlight
-							onPress={started ? onClick : null}
+							onPress={started ? this.onTap : null}
 							underlayColor={
 								started ? this.props.theme.color.underlayColor : null
 							}
-							activeOpacity={0.5}
+							activeOpacity={0.7}
 						>
 							<StyledLayout warning={timeout}>
 								<TotalTime totalMillis={started ? totalMillis : 0} />
@@ -59,9 +67,11 @@ export default withTheme(
 									value={millisPerUser}
 								/>
 								{!started && <StartButton onPress={onStart} />}
-								<TapToStart centered>
-									{started ? `Participant ${participant}` : "Tap to start"}
-								</TapToStart>
+								<Animatable.View ref={this.handleTextRef} style={{ flex: 1 }}>
+									<StyledText fontSize={12} centered>
+										{started ? `Participant ${participant}` : "Tap to start"}
+									</StyledText>
+								</Animatable.View>
 							</StyledLayout>
 						</StyledTouchableHighlight>
 					)}

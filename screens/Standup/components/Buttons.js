@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components/native";
+import styled, { withTheme } from "styled-components/native";
 import { Image, TouchableOpacity } from "react-native";
+import { THEME_LIGHT } from "../../../constants";
 
 const StyledImage = styled(Image)`
 	width: ${({ size }) => size};
@@ -11,27 +12,36 @@ const StyledImage = styled(Image)`
 const StyledTouchableOpacity = styled(TouchableOpacity)`
 	align-items: center;
 	padding: 10px;
+	padding-bottom: 30px;
 	justify-content: center;
 `;
 
-export const StartButton = props => {
+export const StartButton = withTheme(({ theme, ...props }) => {
 	return (
 		<StyledTouchableOpacity {...props}>
 			<StyledImage
 				size={108}
-				source={require("../../../assets/images/btn-start.png")}
+				source={
+					theme.name === THEME_LIGHT
+						? require("../../../assets/images/btn-start_light.png")
+						: require("../../../assets/images/btn-start.png")
+				}
 			/>
 		</StyledTouchableOpacity>
 	);
-};
+});
 
-export const StopButton = props => {
+export const StopButton = withTheme(({ theme, ...props }) => {
 	return (
 		<StyledTouchableOpacity {...props}>
 			<StyledImage
 				size={80}
-				source={require("../../../assets/images/btn-stop.png")}
+				source={
+					theme.name === THEME_LIGHT
+						? require("../../../assets/images/btn-stop_light.png")
+						: require("../../../assets/images/btn-stop.png")
+				}
 			/>
 		</StyledTouchableOpacity>
 	);
-};
+});
