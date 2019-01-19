@@ -19,6 +19,7 @@ export const Cards = {
 
 export const QUESTION_CARD = "?";
 export const INFINITY_CARD = "∞";
+export const CUP_CARD = "cup";
 
 export const THEME_DARK = "THEME_DARK";
 export const THEME_LIGHT = "THEME_LIGHT";
