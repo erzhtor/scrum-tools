@@ -1,8 +1,8 @@
 import React from "react";
 import { TouchableOpacity, Image } from "react-native";
-import styled from "styled-components/native";
+import styled, { withTheme } from "styled-components/native";
 import { StText } from "../../../components";
-import { INFINITY_CARD, CUP_CARD } from "../../../constants";
+import { INFINITY_CARD, CUP_CARD, THEME_DARK } from "../../../constants";
 
 const StyledCard = styled(TouchableOpacity)`
 	width: 80px;
@@ -27,18 +27,28 @@ const StyledImage = styled(Image)`
 	align-self: center;
 `;
 
-export const Card = ({ item, ...rest }) => {
+export const Card = withTheme(({ item, theme, ...rest }) => {
 	const isInfinity = item === INFINITY_CARD;
 	const isCup = item === CUP_CARD;
 	return (
 		<StyledCard {...rest}>
 			{isInfinity && (
 				<StyledImage
-					source={require("../../../assets/images/infinity-sign_dark.png")}
+					source={
+						theme.name === THEME_DARK
+							? require("../../../assets/images/infinity-sign_dark.png")
+							: require("../../../assets/images/infinity-sign_light.png")
+					}
 				/>
 			)}
 			{isCup && (
-				<StyledImage source={require("../../../assets/images/cup_dark.png")} />
+				<StyledImage
+					source={
+						theme.name === THEME_DARK
+							? require("../../../assets/images/cup_dark.png")
+							: require("../../../assets/images/cup_light.png")
+					}
+				/>
 			)}
 			{!isInfinity && !isCup && (
 				<StyledText centered small={item.length > 2}>
@@ -47,4 +57,4 @@ export const Card = ({ item, ...rest }) => {
 			)}
 		</StyledCard>
 	);
-};
+});

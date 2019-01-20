@@ -35,9 +35,10 @@ export default class CardsScreen extends React.Component {
 						<CardListScreen onItemClick={this.onItemClick.bind(this)} />
 					)}
 					{selected && (
-						<CardScreen onPress={() => this.setState({ selected: null })}>
-							{selected}
-						</CardScreen>
+						<CardScreen
+							onPress={() => this.setState({ selected: null })}
+							item={selected}
+						/>
 					)}
 				</StyledLayout>
 			</ScrollView>
