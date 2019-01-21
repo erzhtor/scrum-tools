@@ -1,11 +1,12 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 import { StButton, StText } from "../../components";
 import { CardsPattern } from "./CardsPattern";
 import { THEME_DARK, THEME_LIGHT } from "../../constants";
 import { AppContext } from "../../context";
+import { StHeader } from "../../components/StHeader";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -28,13 +29,6 @@ const StyledBorder = styled(View)`
 	flex: 1;
 `;
 
-const StyledHeader = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: 24px;
-	background: ${({ theme }) => theme.color.bg};
-	padding: 28px;
-`;
-
 const StyledButton = styled(StButton)`
 	width: 127px;
 	height: 127px;
@@ -49,9 +43,9 @@ export default class SettingsScreen extends React.Component {
 	static navigationOptions = {
 		title: null,
 		header: props => (
-			<StyledHeader centered {...props}>
+			<StHeader centered {...props}>
 				Settings
-			</StyledHeader>
+			</StHeader>
 		)
 	};
 
@@ -82,9 +76,13 @@ export default class SettingsScreen extends React.Component {
 							</StyledSection>
 							<StyledBorder />
 							<StyledSection>
-								<StyledText centered fontSize={18}>
-									About
-								</StyledText>
+								<TouchableOpacity
+									onPress={() => this.props.navigation.navigate("About")}
+								>
+									<StyledText centered fontSize={18}>
+										About
+									</StyledText>
+								</TouchableOpacity>
 								<StyledText centered fontSize={18}>
 									Donate
 								</StyledText>

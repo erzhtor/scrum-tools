@@ -6,19 +6,13 @@ import { StText } from "../../components";
 import { StandupContext } from "./context";
 import { StopButton, Table } from "./components";
 import { formatMillisToTime } from "./lib/format-millis-to-time";
-import { THEME_LIGHT } from "../../constants";
+import { StHeader } from "../../components/StHeader";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
-	padding: 20px;
+	padding: 0 20px 20px 20px;
 	flex: 1;
 	justify-content: flex-start;
-`;
-
-const StyledHeader = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: 24;
-	padding: 10px;
 `;
 
 const StyledKeyText = styled(StText)`
@@ -64,7 +58,7 @@ export class ReportScreen extends Component {
 					const totalMillisStr = formatMillisToTime(totalMillis);
 					return (
 						<StyledLayout>
-							<StyledHeader centered>Today</StyledHeader>
+							<StHeader centered>Today</StHeader>
 							<StyledTable>
 								<Tuple name="PARTICIPANTS" value={participant} />
 								<Tuple name="TIMEOUTS" value={timeouts} />

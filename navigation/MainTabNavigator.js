@@ -9,9 +9,9 @@ import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
 import { StText, TabBarIcon } from "../components";
+import AboutScreen from "../screens/About";
 
 const StyledTabBarLabel = styled(StText)`
-	font-family: "Slim Joe";
 	font-size: 10px;
 	color: ${({ theme, focused }) =>
 		focused ? theme.color.primary : theme.color.secondary};
@@ -24,7 +24,7 @@ const StandupStack = createStackNavigator({
 
 StandupStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel centered focused={focused}>
+		<StyledTabBarLabel slim centered focused={focused}>
 			Standup
 		</StyledTabBarLabel>
 	),
@@ -37,7 +37,7 @@ const CardsStack = createStackNavigator({
 
 CardsStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel centered focused={focused}>
+		<StyledTabBarLabel slim centered focused={focused}>
 			Cards
 		</StyledTabBarLabel>
 	),
@@ -45,17 +45,19 @@ CardsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-	Settings: SettingsScreen
+	Settings: SettingsScreen,
+	About: AboutScreen
 });
 
-SettingsStack.navigationOptions = {
+SettingsStack.navigationOptions = ({ navigation }) => ({
 	tabBarLabel: ({ focused }) => (
-		<StyledTabBarLabel centered focused={focused}>
+		<StyledTabBarLabel slim centered focused={focused}>
 			Settings
 		</StyledTabBarLabel>
 	),
-	tabBarIcon: ({ focused }) => <TabBarIcon name="settings" focused={focused} />
-};
+	tabBarIcon: ({ focused }) => <TabBarIcon name="settings" focused={focused} />,
+	tabBarVisible: navigation.state.index === 0
+});
 
 export default createBottomTabNavigator(
 	{

@@ -25,6 +25,9 @@ export default withTheme(
 			started: false
 		};
 
+		/**
+		 * On participant change handler.
+		 */
 		onTap() {
 			Vibration.vibrate(VIBRATION_DURATION);
 			const { participant, millisPerUser } = this.state;
@@ -35,6 +38,9 @@ export default withTheme(
 			});
 		}
 
+		/**
+		 * React interval handler.
+		 */
 		onInterval() {
 			const { totalMillis, count, timeouts = 0, timeout = false } = this.state;
 
@@ -46,21 +52,40 @@ export default withTheme(
 
 			const newCount = count - INTERVAL_IN_MILLIS;
 			if (newCount < 0) {
-				this.setState({ timeouts: timeouts + 1, timeout: true, count: 0 });
+				this.onTimeOut();
 			} else {
 				this.setState({ count: newCount });
 			}
 		}
 
+		/**
+		 * Participant timeout handler.
+		 */
+		onTimeOut() {
+			this.setState({ timeouts: timeouts + 1, timeout: true, count: 0 });
+			// TODO: play a sound
+		}
+
+		/**
+		 * Slider value change hander.
+		 * Set millis per user when slider is changed
+		 * @param {number} value milliseconds
+		 */
 		onSliderChange(value) {
 			this.setState({ millisPerUser: value });
 		}
 
+		/**
+		 * Stop button handler.
+		 */
 		onStop() {
 			this.setState({ started: false, timeout: false });
 			clearInterval(interval);
 		}
 
+		/**
+		 * Start button handler.
+		 */
 		onStart() {
 			Vibration.vibrate(VIBRATION_DURATION);
 			clearInterval(interval);
