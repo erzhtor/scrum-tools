@@ -28,10 +28,6 @@ const StyledCard = styled(View)`
 	align-items: center;
 `;
 
-const StyledText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-`;
-
 const StyledWrapper = styled(View)``;
 
 export class CardsPattern extends Component {
@@ -42,9 +38,9 @@ export class CardsPattern extends Component {
 					<StyledLayout>
 						<StyledWrapper>
 							<StyledCard>
-								<StyledText centered fontSize={18}>
+								<StText centered fontSize={18}>
 									{"CARDS'\nPATTERN"}
-								</StyledText>
+								</StText>
 							</StyledCard>
 						</StyledWrapper>
 						<StyledWrapper>

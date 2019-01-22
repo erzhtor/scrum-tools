@@ -15,16 +15,6 @@ const StyledLayout = styled(View)`
 	justify-content: flex-start;
 `;
 
-const StyledKeyText = styled(StText)`
-	color: ${({ theme }) => theme.color.secondary};
-	font-size: 16;
-`;
-
-const StyledValueText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: 16;
-`;
-
 const StyledStopButton = styled(StopButton)`
 	flex: 0.5;
 `;
@@ -32,10 +22,12 @@ const StyledStopButton = styled(StopButton)`
 const Tuple = ({ name, value }) => (
 	<Table.Row>
 		<Table.Item>
-			<StyledKeyText>{name}</StyledKeyText>
+			<StText secondary fontSize="16">
+				{name}
+			</StText>
 		</Table.Item>
 		<Table.Item flexGrow={0.3}>
-			<StyledValueText>{value}</StyledValueText>
+			<StText fontSize="16">{value}</StText>
 		</Table.Item>
 	</Table.Row>
 );

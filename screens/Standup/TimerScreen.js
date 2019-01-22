@@ -22,10 +22,6 @@ const StyledLayout = styled(View)`
 	padding-bottom: 20px;
 `;
 
-const StyledText = styled(StText)`
-	color: ${({ theme }) => theme.color.secondary};
-`;
-
 export default withTheme(
 	class TimerScreen extends Component {
 		handleTextRef = ref => (this.textContainer = ref);
@@ -68,9 +64,9 @@ export default withTheme(
 								/>
 								{!started && <StartButton onPress={onStart} />}
 								<Animatable.View ref={this.handleTextRef} style={{ flex: 1 }}>
-									<StyledText fontSize={12} centered>
+									<StText secondary fontSize={12} centered>
 										{started ? `Participant ${participant}` : "Tap to start"}
-									</StyledText>
+									</StText>
 								</Animatable.View>
 							</StyledLayout>
 						</StyledTouchableHighlight>

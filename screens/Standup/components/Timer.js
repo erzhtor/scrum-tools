@@ -6,7 +6,6 @@ import { formatMillisToTime } from "../lib/format-millis-to-time";
 const StyledText = styled(StText)`
 	font-size: 72;
 	font-size: 90px;
-	color: ${({ theme }) => theme.color.primary};
 `;
 
 export const Timer = ({ millis, ...rest }) => (

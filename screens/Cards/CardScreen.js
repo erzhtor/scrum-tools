@@ -13,11 +13,7 @@ const StyledButton = styled(TouchableOpacity)`
 	height: 100%;
 `;
 
-const LargeText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-`;
-
-const Card = withTheme(({ item, theme }) => {
+const LargeCard = withTheme(({ item, theme }) => {
 	const isCup = item === CUP_CARD;
 
 	if (isCup) {
@@ -53,15 +49,14 @@ const Card = withTheme(({ item, theme }) => {
 
 	return (
 		<Animatable.View animation="zoomIn">
-			<LargeText fontSize={item.length > 2 ? 140 : 240} centered>
+			<StText fontSize={item.length > 2 ? 140 : 240} centered>
 				{item}
-			</LargeText>
+			</StText>
 		</Animatable.View>
 	);
 });
 
 const StyledText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
 	align-self: center;
 `;
 
@@ -79,7 +74,7 @@ export class CardScreen extends React.Component {
 				)}
 				{revealed && (
 					<StyledButton {...rest}>
-						<Card item={item} />
+						<LargeCard item={item} />
 					</StyledButton>
 				)}
 			</React.Fragment>

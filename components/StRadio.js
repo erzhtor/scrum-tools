@@ -31,14 +31,12 @@ const StyledTouchableOpacity = styled(TouchableOpacity)`
 const StyledText = styled(StText)`
 	margin: 0;
 	font-size: 18px;
-	color: ${({ theme, selected }) =>
-		selected ? theme.color.secondary : theme.color.primary};
 `;
 
 const RadioButton = ({ label, value, selected, onClick }) => (
 	<StyledTouchableOpacity onPress={() => onClick(value)}>
 		<StyledCircle selected={selected} />
-		<StyledText selected={selected}>{label}</StyledText>
+		<StyledText secondary={selected}>{label}</StyledText>
 	</StyledTouchableOpacity>
 );
 

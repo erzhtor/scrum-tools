@@ -35,10 +35,6 @@ const StyledButton = styled(StButton)`
 	border-radius: 22px;
 `;
 
-const StyledText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
-`;
-
 export default class SettingsScreen extends React.Component {
 	static navigationOptions = {
 		title: null,
@@ -79,13 +75,13 @@ export default class SettingsScreen extends React.Component {
 								<TouchableOpacity
 									onPress={() => this.props.navigation.navigate("About")}
 								>
-									<StyledText centered fontSize={18}>
+									<StText centered fontSize={18}>
 										About
-									</StyledText>
+									</StText>
 								</TouchableOpacity>
-								<StyledText centered fontSize={18}>
+								<StText centered fontSize={18}>
 									Donate
-								</StyledText>
+								</StText>
 							</StyledSection>
 						</StyledLayout>
 					)}

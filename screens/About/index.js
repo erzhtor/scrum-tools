@@ -12,8 +12,6 @@ const StyledLayout = styled(View)`
 `;
 
 const StyledText = styled(StText)`
-	color: ${({ theme, secondary }) =>
-		secondary ? theme.color.secondary : theme.color.primary};
 	text-transform: uppercase;
 	padding: 10px;
 `;

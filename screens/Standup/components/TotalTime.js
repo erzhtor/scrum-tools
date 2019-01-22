@@ -5,13 +5,12 @@ import { formatMillisToTime } from "../lib/format-millis-to-time";
 
 const StyledText = styled(StText)`
 	padding-top: 30;
-	color: ${({ theme }) => theme.color.secondary};
 	font-size: 14px;
 	flex: 1;
 `;
 
 export const TotalTime = ({ totalMillis }) => (
-	<StyledText centered>
+	<StyledText centered secondary>
 		Total Time: {formatMillisToTime(totalMillis)}
 	</StyledText>
 );
