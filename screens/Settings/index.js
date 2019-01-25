@@ -1,38 +1,29 @@
 import React from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
-import { StButton, StText } from "../../components";
-import { CardsPattern } from "./CardsPattern";
-import { THEME_DARK, THEME_LIGHT } from "../../constants";
-import { AppContext } from "../../context";
 import { StHeader } from "../../components/StHeader";
+import { SquareButton } from "./components/SquareButton";
+import { CardSettings } from "./CardSettings";
+import { ThemeSettings } from "./ThemeSettings";
+import { About } from "./About";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
 	flex: 1;
 	padding: 28px 28px 0;
-	flex-direction: column;
 	justify-content: flex-start;
 `;
 
 const StyledSection = styled(View)`
-	flex: 1;
 	flex-direction: row;
 	justify-content: space-between;
+	margin: 30px 0;
 `;
 
 const StyledBorder = styled(View)`
 	border-color: ${({ theme }) => theme.color.primary};
 	border-bottom-width: 0.25px;
-	margin-bottom: 15px;
-	flex: 1;
-`;
-
-const StyledButton = styled(StButton)`
-	width: 127px;
-	height: 127px;
-	border-radius: 22px;
 `;
 
 export default class SettingsScreen extends React.Component {
@@ -48,44 +39,19 @@ export default class SettingsScreen extends React.Component {
 	render() {
 		return (
 			<ScrollView contentContainerStyle={{ justifyContent: "center", flex: 1 }}>
-				<AppContext.Consumer>
-					{({ onThemeChange, themeKey }) => (
-						<StyledLayout>
-							<StyledSection>
-								<CardsPattern />
-							</StyledSection>
-							<StyledBorder />
-							<StyledSection>
-								<StyledButton
-									selected={themeKey === THEME_DARK}
-									onPress={() => onThemeChange(THEME_DARK)}
-								>
-									Dark Theme
-								</StyledButton>
-								<StyledButton
-									selected={themeKey === THEME_LIGHT}
-									light
-									onPress={() => onThemeChange(THEME_LIGHT)}
-								>
-									Light Theme
-								</StyledButton>
-							</StyledSection>
-							<StyledBorder />
-							<StyledSection>
-								<TouchableOpacity
-									onPress={() => this.props.navigation.navigate("About")}
-								>
-									<StText centered fontSize={18}>
-										About
-									</StText>
-								</TouchableOpacity>
-								<StText centered fontSize={18}>
-									Donate
-								</StText>
-							</StyledSection>
-						</StyledLayout>
-					)}
-				</AppContext.Consumer>
+				<StyledLayout>
+					<StyledSection>
+						<CardSettings />
+						<ThemeSettings />
+					</StyledSection>
+					<StyledBorder />
+					<StyledSection>
+						<About />
+						<SquareButton onPress={() => this.setState({ modal: "donate" })}>
+							Donate
+						</SquareButton>
+					</StyledSection>
+				</StyledLayout>
 			</ScrollView>
 		);
 	}

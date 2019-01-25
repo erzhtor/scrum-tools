@@ -1,6 +1,4 @@
 const COMMON_COLORS = {
-	light: "#FFFFFF",
-	dark: "#131C2D",
 	underlayColor: "#2D3FDC",
 	bgWarning: "#c92a2a"
 };

@@ -9,7 +9,6 @@ import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
 import { StText, TabBarIcon } from "../components";
-import AboutScreen from "../screens/About";
 
 const StyledTabBarLabel = styled(StText)`
 	font-size: 10px;
@@ -45,8 +44,7 @@ CardsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-	Settings: SettingsScreen,
-	About: AboutScreen
+	Settings: SettingsScreen
 });
 
 SettingsStack.navigationOptions = ({ navigation }) => ({

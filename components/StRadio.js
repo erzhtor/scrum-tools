@@ -12,32 +12,28 @@ const StyledCircle = styled(View)`
 	border-radius: 10.5;
 	height: 21;
 	width: 21;
-	margin: 3px;
+	margin: 5px 10px 5px 5px;
 `;
 
 const StyledLayout = styled(View)`
-	flex: 1;
-	align-items: flex-start;
-	justify-content: flex-start;
-`;
-
-const StyledTouchableOpacity = styled(TouchableOpacity)`
-	flex: 1;
-	flex-direction: row;
 	align-items: center;
-	max-height: 60px;
 `;
 
-const StyledText = styled(StText)`
-	margin: 0;
-	font-size: 18px;
+const StyledRadioWrapper = styled(View)`
+	flex-direction: row;
+	align-items: baseline;
+	padding: 5px;
 `;
 
 const RadioButton = ({ label, value, selected, onClick }) => (
-	<StyledTouchableOpacity onPress={() => onClick(value)}>
-		<StyledCircle selected={selected} />
-		<StyledText secondary={selected}>{label}</StyledText>
-	</StyledTouchableOpacity>
+	<TouchableOpacity onPress={() => onClick(value)}>
+		<StyledRadioWrapper>
+			<StyledCircle selected={selected} />
+			<StText fontSize="18" secondary={selected}>
+				{label}
+			</StText>
+		</StyledRadioWrapper>
+	</TouchableOpacity>
 );
 
 export class StRadio extends Component {
@@ -58,18 +54,20 @@ export class StRadio extends Component {
 	}
 
 	render() {
-		const { items, selected } = this.props;
+		const { items, selected, ...rest } = this.props;
 		return (
-			<StyledLayout>
-				{items.map(({ label, value }) => (
-					<RadioButton
-						key={value}
-						label={label}
-						value={value}
-						selected={value === selected}
-						onClick={this.onItemClick.bind(this)}
-					/>
-				))}
+			<StyledLayout {...rest}>
+				<View>
+					{items.map(({ label, value }) => (
+						<RadioButton
+							key={value}
+							label={label}
+							value={value}
+							selected={value === selected}
+							onClick={this.onItemClick.bind(this)}
+						/>
+					))}
+				</View>
 			</StyledLayout>
 		);
 	}
