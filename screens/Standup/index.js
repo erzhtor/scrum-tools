@@ -2,6 +2,7 @@ import React from "react";
 import { Vibration } from "react-native";
 import Swiper from "react-native-swiper";
 import { withTheme } from "styled-components/native";
+import { Audio } from "expo";
 
 import { MILLIS_IN_SECOND } from "../../constants";
 import { StandupContext } from "./context";
@@ -17,13 +18,20 @@ export default withTheme(
 		static navigationOptions = {
 			header: null
 		};
-
 		state = {
 			millisPerUser: 120 * MILLIS_IN_SECOND,
 			participant: 0,
 			totalMillis: 0,
 			started: false
 		};
+
+		async componentDidMount() {
+			this.soundObject = new Audio.Sound();
+			await this.soundObject.loadAsync(
+				require("../../assets/sounds/alarm.mp3")
+			);
+			this.setState({ soundLoaded: true });
+		}
 
 		/**
 		 * On participant change handler.
@@ -36,13 +44,15 @@ export default withTheme(
 				count: millisPerUser,
 				timeout: false
 			});
+
+			this.stopSound();
 		}
 
 		/**
 		 * React interval handler.
 		 */
 		onInterval() {
-			const { totalMillis, count, timeouts = 0, timeout = false } = this.state;
+			const { totalMillis, count, timeout = false } = this.state;
 
 			this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
 
@@ -62,8 +72,25 @@ export default withTheme(
 		 * Participant timeout handler.
 		 */
 		onTimeOut() {
-			this.setState({ timeouts: timeouts + 1, timeout: true, count: 0 });
-			// TODO: play a sound
+			const { timeouts = 0 } = this.state;
+			this.setState({
+				timeouts: timeouts + 1,
+				timeout: true,
+				count: 0
+			});
+			this.playSound();
+		}
+
+		async playSound() {
+			if (this.state.soundLoaded) {
+				await this.soundObject.playAsync();
+			}
+		}
+
+		async stopSound() {
+			if (this.state.soundLoaded) {
+				await this.soundObject.stopAsync();
+			}
 		}
 
 		/**
@@ -81,6 +108,7 @@ export default withTheme(
 		onStop() {
 			this.setState({ started: false, timeout: false });
 			clearInterval(interval);
+			this.stopSound();
 		}
 
 		/**

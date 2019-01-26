@@ -1,4 +1,5 @@
 import React from "react";
+import { Linking } from "react-native";
 
 import { RadioPopup } from "./components/RadioPopup";
 
@@ -12,8 +13,7 @@ export const Donate = () => (
 	<RadioPopup
 		values={RADIO_ITEMS}
 		onChange={value => {
-			// TODO: build link
-			// TODO: open link
+			Linking.openURL("https://money.yandex.ru/to/410018419874117/" + value);
 		}}
 	>
 		Donate
