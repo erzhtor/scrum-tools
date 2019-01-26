@@ -8,9 +8,7 @@ import { INFINITY_CARD, CUP_CARD, THEME_LIGHT } from "../../constants";
 
 const StyledButton = styled(TouchableOpacity)`
 	flex: 1;
-	align-self: center;
 	justify-content: center;
-	width: 100%;
 `;
 
 const LargeCard = withTheme(({ item, theme }) => {
@@ -66,17 +64,19 @@ export class CardScreen extends React.Component {
 		const { revealed } = this.state;
 		const { item, onPress } = this.props;
 		return (
-			<StPopup visible={!!item} onClose={onPress}>
-				{!revealed && (
-					<StyledButton onPress={() => this.setState({ revealed: true })}>
-						<StyledText>Tap to reveal</StyledText>
-					</StyledButton>
-				)}
-				{revealed && (
-					<StyledButton onPress={onPress}>
-						<LargeCard item={item} />
-					</StyledButton>
-				)}
+			<StPopup visible={!!item} onClose={onPress} fullscreen>
+				<StyledButton
+					onPress={() => {
+						if (!revealed) {
+							this.setState({ revealed: true });
+						} else {
+							onPress();
+						}
+					}}
+				>
+					{!revealed && <StyledText>Tap to reveal</StyledText>}
+					{revealed && <LargeCard item={item} />}
+				</StyledButton>
 			</StPopup>
 		);
 	}

@@ -1,6 +1,8 @@
 const COMMON_COLORS = {
 	underlayColor: "#2D3FDC",
-	bgWarning: "#c92a2a"
+	bgWarning: "#c92a2a",
+	transparent: "rgba(0,0,0,0)",
+	blue: "#2D3FDC"
 };
 
 export const DarkTheme = {
@@ -8,11 +10,10 @@ export const DarkTheme = {
 		bg: "#131C2D",
 		secondary: "#777575",
 		primary: "#FFFFFF",
-		blue: "#2D3FDC",
-		transparent: "rgba(0,0,0,0)",
 		sliderColor: "#FFFFFF",
 		tabIconFocused: "#FFFFFF",
 		tabIcon: "#777575",
+		popup: "rgba(128, 128, 128, 0.2)",
 		...COMMON_COLORS
 	},
 	name: "THEME_DARK"
@@ -23,11 +24,10 @@ export const LightTheme = {
 		bg: "#FFFFFF",
 		secondary: "#777575",
 		primary: "#151C28",
-		blue: "#2D3FDC",
-		transparent: "rgba(0,0,0,0)",
 		sliderColor: "#151C28",
 		tabIconFocused: "#151C28",
 		tabIcon: "#a3a1a1",
+		popup: "rgba(128,128,128, 0.7)",
 		...COMMON_COLORS
 	},
 	name: "THEME_LIGHT"

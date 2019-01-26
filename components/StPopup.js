@@ -1,11 +1,32 @@
 import React from "react";
-import { View, Modal } from "react-native";
+import { View, Modal, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-const StyledContainer = styled(View)`
-	background: ${({ theme }) => theme.color.bg};
+const StyledContainer = styled(TouchableOpacity)`
+	background: ${({ theme }) => theme.color.popup};
 	flex: 1;
-	justify-content: center;
+	${({ centered }) =>
+		centered
+			? `
+		justify-content: center;
+		align-items: center;`
+			: ""}
+`;
+
+const StyledWrapper = styled(TouchableOpacity)`
+	background: ${({ theme }) => theme.color.bg};
+	${({ fullscreen }) =>
+		fullscreen
+			? `
+			flex: 1;
+			width: 100%;
+			height: 100%;
+			`
+			: `
+		position: absolute;
+		border-radius: 6px;
+		padding: 10px;
+	`};
 `;
 
 export class StPopup extends React.Component {
@@ -27,7 +48,7 @@ export class StPopup extends React.Component {
 	};
 
 	render() {
-		const { onClose, children, ...rest } = this.props;
+		const { onClose, centered, fullscreen, children, ...rest } = this.props;
 		return (
 			<View>
 				<Modal
@@ -36,7 +57,15 @@ export class StPopup extends React.Component {
 					visible={this.state.visible}
 					onRequestClose={this.onClose}
 				>
-					<StyledContainer {...rest}>{children}</StyledContainer>
+					<StyledContainer
+						activeOpacity={1}
+						centered={centered}
+						onPress={this.onClose}
+					>
+						<StyledWrapper fullscreen={fullscreen} {...rest} activeOpacity={1}>
+							{children}
+						</StyledWrapper>
+					</StyledContainer>
 				</Modal>
 			</View>
 		);

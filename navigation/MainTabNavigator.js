@@ -8,7 +8,7 @@ import styled from "styled-components";
 import StandupScreen from "../screens/Standup";
 import CardsScreen from "../screens/Cards";
 import SettingsScreen from "../screens/Settings";
-import { StText, TabBarIcon } from "../components";
+import { StText, StTabBarIcon } from "../components";
 
 const StyledTabBarLabel = styled(StText)`
 	font-size: 10px;
@@ -27,7 +27,7 @@ StandupStack.navigationOptions = {
 			Standup
 		</StyledTabBarLabel>
 	),
-	tabBarIcon: ({ focused }) => <TabBarIcon name="standup" focused={focused} />
+	tabBarIcon: ({ focused }) => <StTabBarIcon name="standup" focused={focused} />
 };
 
 const CardsStack = createStackNavigator({
@@ -40,7 +40,7 @@ CardsStack.navigationOptions = {
 			Cards
 		</StyledTabBarLabel>
 	),
-	tabBarIcon: ({ focused }) => <TabBarIcon name="cards" focused={focused} />
+	tabBarIcon: ({ focused }) => <StTabBarIcon name="cards" focused={focused} />
 };
 
 const SettingsStack = createStackNavigator({
@@ -53,7 +53,9 @@ SettingsStack.navigationOptions = ({ navigation }) => ({
 			Settings
 		</StyledTabBarLabel>
 	),
-	tabBarIcon: ({ focused }) => <TabBarIcon name="settings" focused={focused} />,
+	tabBarIcon: ({ focused }) => (
+		<StTabBarIcon name="settings" focused={focused} />
+	),
 	tabBarVisible: navigation.state.index === 0
 });
 

@@ -73,6 +73,7 @@ export class About extends Component {
 				<StPopup
 					visible={this.state.isModalVisible}
 					onClose={() => this.setState({ isModalVisible: false })}
+					fullscreen
 				>
 					<AboutInfo />
 				</StPopup>
