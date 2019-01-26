@@ -31,7 +31,6 @@ export default withTheme(
 			if (this.textContainer) {
 				this.textContainer.zoomIn(800);
 			}
-			console.log(this.props.theme);
 		};
 
 		render() {

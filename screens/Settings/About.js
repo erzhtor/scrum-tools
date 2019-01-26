@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 import { SquareButton } from "./components/SquareButton";
@@ -64,6 +64,10 @@ export class About extends Component {
 		isModalVisible: false
 	};
 
+	onPopupClose = () => {
+		this.setState({ isModalVisible: false });
+	};
+
 	render() {
 		return (
 			<View>
@@ -72,10 +76,12 @@ export class About extends Component {
 				</SquareButton>
 				<StPopup
 					visible={this.state.isModalVisible}
-					onClose={() => this.setState({ isModalVisible: false })}
+					onClose={this.onPopupClose}
 					fullscreen
 				>
-					<AboutInfo />
+					<TouchableOpacity onPress={this.onPopupClose} style={{ flex: 1 }}>
+						<AboutInfo />
+					</TouchableOpacity>
 				</StPopup>
 			</View>
 		);

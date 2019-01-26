@@ -5,7 +5,9 @@ import { StRadio, StPopup } from "../../../components";
 import { SquareButton } from "./SquareButton";
 import styled from "styled-components/native";
 
-const StyledPopup = styled(StPopup)``;
+const StyledPopup = styled(StPopup)`
+	padding: 20px;
+`;
 export class RadioPopup extends Component {
 	state = {
 		visible: false
