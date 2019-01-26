@@ -3,14 +3,14 @@ import { TouchableOpacity } from "react-native";
 import styled, { withTheme } from "styled-components/native";
 import * as Animatable from "react-native-animatable";
 
-import { StText } from "../../components";
+import { StText, StPopup } from "../../components";
 import { INFINITY_CARD, CUP_CARD, THEME_LIGHT } from "../../constants";
 
 const StyledButton = styled(TouchableOpacity)`
 	flex: 1;
 	align-self: center;
 	justify-content: center;
-	height: 100%;
+	width: 100%;
 `;
 
 const LargeCard = withTheme(({ item, theme }) => {
@@ -64,20 +64,20 @@ export class CardScreen extends React.Component {
 	state = {};
 	render() {
 		const { revealed } = this.state;
-		const { item, ...rest } = this.props;
+		const { item, onPress } = this.props;
 		return (
-			<React.Fragment>
+			<StPopup visible={!!item} onClose={onPress}>
 				{!revealed && (
 					<StyledButton onPress={() => this.setState({ revealed: true })}>
 						<StyledText>Tap to reveal</StyledText>
 					</StyledButton>
 				)}
 				{revealed && (
-					<StyledButton {...rest}>
+					<StyledButton onPress={onPress}>
 						<LargeCard item={item} />
 					</StyledButton>
 				)}
-			</React.Fragment>
+			</StPopup>
 		);
 	}
 }

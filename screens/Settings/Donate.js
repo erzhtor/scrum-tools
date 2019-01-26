@@ -5,7 +5,7 @@ import { RadioPopup } from "./components/RadioPopup";
 const RADIO_ITEMS = [
 	{ label: "Send me a coffee", value: 100 },
 	{ label: "Send me a coffee and cake", value: 300 },
-	{ label: "Send me what you wish", value: null }
+	{ label: "Send me what you wish", value: 0 }
 ];
 
 export const Donate = () => (
