@@ -3,10 +3,10 @@ import { View, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 import { StHeader } from "../../components/StHeader";
-import { SquareButton } from "./components/SquareButton";
 import { CardSettings } from "./CardSettings";
 import { ThemeSettings } from "./ThemeSettings";
 import { About } from "./About";
+import { Donate } from "./Donate";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -47,9 +47,7 @@ export default class SettingsScreen extends React.Component {
 					<StyledBorder />
 					<StyledSection>
 						<About />
-						<SquareButton onPress={() => this.setState({ modal: "donate" })}>
-							Donate
-						</SquareButton>
+						<Donate />
 					</StyledSection>
 				</StyledLayout>
 			</ScrollView>

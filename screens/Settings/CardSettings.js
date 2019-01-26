@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-import { View } from "react-native";
+import React from "react";
 
-import { StRadio, StPopup } from "../../components";
 import { Cards } from "../../constants";
 import { AppContext } from "../../context";
-import { SquareButton } from "./components/SquareButton";
+import { RadioPopup } from "./components/RadioPopup";
 
 const RADIO_ITEMS = [
 	{ label: "STANDARD", value: Cards.STANDARD.name },
@@ -12,34 +10,16 @@ const RADIO_ITEMS = [
 	{ label: "FIBONACCI", value: Cards.FIBONACCI.name }
 ];
 
-export class CardSettings extends Component {
-	state = {
-		isModalVisible: false
-	};
-
-	render() {
-		return (
-			<AppContext.Consumer>
-				{({ onCardPatternChange, cardPattern }) => (
-					<View>
-						<SquareButton
-							onPress={() => this.setState({ isModalVisible: true })}
-						>
-							Cards' pattern
-						</SquareButton>
-						<StPopup visible={this.state.isModalVisible}>
-							<StRadio
-								items={RADIO_ITEMS}
-								selected={cardPattern}
-								onChange={value => {
-									this.setState({ isModalVisible: false });
-									onCardPatternChange(value);
-								}}
-							/>
-						</StPopup>
-					</View>
-				)}
-			</AppContext.Consumer>
-		);
-	}
-}
+export const CardSettings = () => (
+	<AppContext.Consumer>
+		{({ onCardPatternChange, cardPattern }) => (
+			<RadioPopup
+				values={RADIO_ITEMS}
+				selected={cardPattern}
+				onChange={onCardPatternChange}
+			>
+				Cards' pattern
+			</RadioPopup>
+		)}
+	</AppContext.Consumer>
+);

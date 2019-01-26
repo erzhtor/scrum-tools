@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 
 const StyledContainer = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
-	opacity: 0.9;
 	flex: 1;
 	justify-content: center;
 `;
