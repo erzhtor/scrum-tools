@@ -51,7 +51,7 @@ export default withTheme(
 							underlayColor={
 								started ? this.props.theme.color.underlayColor : null
 							}
-							activeOpacity={0.7}
+							activeOpacity={0.4}
 						>
 							<StyledLayout warning={timeout}>
 								<TotalTime totalMillis={started ? totalMillis : 0} />
