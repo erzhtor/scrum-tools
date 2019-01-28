@@ -22,7 +22,8 @@ export default withTheme(
 			millisPerUser: 120 * MILLIS_IN_SECOND,
 			participant: 0,
 			totalMillis: 0,
-			started: false
+			started: false,
+			initial: true
 		};
 
 		async componentDidMount() {
@@ -140,7 +141,8 @@ export default withTheme(
 				totalMillis,
 				timeouts,
 				timeout,
-				started
+				started,
+				initial
 			} = this.state;
 			return (
 				<StandupContext.Provider
@@ -157,15 +159,21 @@ export default withTheme(
 				>
 					<Swiper
 						loop={false}
-						showsPagination={true}
+						showsPagination={started || !initial}
+						scrollEnabled={started || !initial}
 						dotColor={this.props.theme.color.secondary}
-						ref={component => (this.swiper = component)}
+						onIndexChanged={index => {
+							this.setState({ initial: index === 0 });
+						}}
 					>
 						<TimerScreen
 							onTap={this.onTap.bind(this)}
 							onStart={this.onStart.bind(this)}
 						/>
-						<ReportScreen onStop={this.onStop.bind(this)} />
+						<ReportScreen
+							onStop={this.onStop.bind(this)}
+							onEnd={() => this.swiper.scrollBy(-1)}
+						/>
 					</Swiper>
 				</StandupContext.Provider>
 			);

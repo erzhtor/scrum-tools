@@ -28,6 +28,7 @@ const Range = ({ onSliderChange, value, hidden, theme }) => {
 				minimumTrackTintColor="red"
 				maximumTrackTintColor={theme.color.sliderColor}
 				thumbTintColor={theme.color.sliderColor}
+				thumbTouchSize={{ width: 170, height: 170 }}
 			/>
 		</StyledRangeContainer>
 	);
