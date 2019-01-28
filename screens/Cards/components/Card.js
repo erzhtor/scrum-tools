@@ -9,7 +9,7 @@ const StyledCard = styled(TouchableOpacity)`
 	height: 80px;
 	margin: 10px;
 	background-color: ${({ theme }) => theme.color.primary};
-	align-content: center;
+	align-items: center;
 	border-radius: 6px;
 	display: flex;
 	justify-content: center;
@@ -17,14 +17,12 @@ const StyledCard = styled(TouchableOpacity)`
 
 const StyledText = styled(StText)`
 	color: ${({ theme }) => theme.color.bg};
-	font-size: ${({ small }) => (small ? "34px" : "42px")};
 `;
 
 const StyledImage = styled(Image)`
 	width: 50;
 	height: 50;
 	resize-mode: contain;
-	align-self: center;
 `;
 
 export const Card = withTheme(({ item, theme, ...rest }) => {
@@ -51,9 +49,7 @@ export const Card = withTheme(({ item, theme, ...rest }) => {
 				/>
 			)}
 			{!isInfinity && !isCup && (
-				<StyledText centered small={item.length > 2}>
-					{item}
-				</StyledText>
+				<StyledText fontSize={item.length > 2 ? 34 : 42}>{item}</StyledText>
 			)}
 		</StyledCard>
 	);

@@ -85,29 +85,31 @@ export default class App extends React.Component {
 					onFinish={this._handleFinishLoading}
 				/>
 			);
-		} else {
-			return (
-				<AppContext.Provider
-					value={{
-						cards,
-						cardPattern,
-						onCardPatternChange: this.onCardPatternChange,
-						themeKey,
-						onThemeChange: this.onThemeChange
-					}}
-				>
-					<ThemeProvider
-						theme={themeKey === THEME_DARK ? DarkTheme : LightTheme}
-					>
-						<StyledLayout>
-							{Platform.OS === "ios" && <StatusBar barStyle="default" />}
-							{!loading && <AppNavigator />}
-							{loading && <StSpinner />}
-						</StyledLayout>
-					</ThemeProvider>
-				</AppContext.Provider>
-			);
 		}
+		const isDarkTheme = themeKey === THEME_DARK;
+		return (
+			<AppContext.Provider
+				value={{
+					cards,
+					cardPattern,
+					onCardPatternChange: this.onCardPatternChange,
+					themeKey,
+					onThemeChange: this.onThemeChange
+				}}
+			>
+				<ThemeProvider theme={isDarkTheme ? DarkTheme : LightTheme}>
+					<StyledLayout>
+						{Platform.OS === "ios" && (
+							<StatusBar
+								barStyle={isDarkTheme ? "light-content" : "dark-content"}
+							/>
+						)}
+						{!loading && <AppNavigator />}
+						{loading && <StSpinner />}
+					</StyledLayout>
+				</ThemeProvider>
+			</AppContext.Provider>
+		);
 	}
 
 	_loadResourcesAsync = async () => {
