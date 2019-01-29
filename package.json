@@ -15,7 +15,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "2.1.1",
     "babel-plugin-styled-components": "^1.6.0",
     "expo": "^31.0.4",
     "prop-types": "^15.6.2",
