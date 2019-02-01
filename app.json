@@ -23,7 +23,8 @@
       "bundleIdentifier": "com.oswacody.scrumtools"
     },
     "android": {
-      "package": "com.oswacody.scrumtools"
+      "package": "com.oswacody.scrumtools",
+      "permissions": ["VIBRATE"]
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {
