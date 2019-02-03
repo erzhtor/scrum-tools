@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Platform } from "react-native";
 import styled from "styled-components/native";
 
 import { StHeader } from "../../components/StHeader";
@@ -13,12 +13,6 @@ const StyledLayout = styled(View)`
 	flex: 1;
 	padding: 28px 28px 0;
 	justify-content: flex-start;
-`;
-
-const StyledSection = styled(View)`
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 30px 0;
 `;
 
 const StyledBorder = styled(View)`
@@ -40,15 +34,17 @@ export default class SettingsScreen extends React.Component {
 		return (
 			<ScrollView contentContainerStyle={{ justifyContent: "center", flex: 1 }}>
 				<StyledLayout>
-					<StyledSection>
-						<CardSettings />
-						<ThemeSettings />
-					</StyledSection>
+					<ThemeSettings />
 					<StyledBorder />
-					<StyledSection>
-						<About />
-						<Donate />
-					</StyledSection>
+					<CardSettings />
+					<StyledBorder />
+					{Platform.OS !== "android" && (
+						<React.Fragment>
+							<Donate />
+							<StyledBorder />
+						</React.Fragment>
+					)}
+					<About />
 				</StyledLayout>
 			</ScrollView>
 		);

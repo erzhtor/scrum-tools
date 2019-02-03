@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-import { SquareButton } from "./components/SquareButton";
-import { StHeader, StPopup, StText } from "../../components";
+import { StHeader, StPopup, StText, StButton } from "../../components";
 import { version } from "../../package.json";
 
 const StyledLayout = styled(View)`
@@ -19,6 +18,11 @@ const StyledText = styled(StText)`
 
 const StyledWrapper = styled(View)`
 	width: 100%;
+`;
+
+const StyledButton = styled(StButton)`
+	margin: 30px 0;
+	padding: 0;
 `;
 
 const AppVersion = () => (
@@ -71,9 +75,9 @@ export class About extends Component {
 	render() {
 		return (
 			<View>
-				<SquareButton onPress={() => this.setState({ isModalVisible: true })}>
+				<StyledButton onPress={() => this.setState({ isModalVisible: true })}>
 					About
-				</SquareButton>
+				</StyledButton>
 				<StPopup
 					visible={this.state.isModalVisible}
 					onClose={this.onPopupClose}

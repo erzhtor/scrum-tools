@@ -2,7 +2,8 @@ const COMMON_COLORS = {
 	underlayColor: "#2D3FDC",
 	bgWarning: "#c92a2a",
 	transparent: "rgba(0,0,0,0)",
-	blue: "#2D3FDC"
+	blue: "#2D3FDC",
+	switchTintOn: "rgba(45,63,220, 0.5)"
 };
 
 export const DarkTheme = {

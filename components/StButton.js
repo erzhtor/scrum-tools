@@ -1,13 +1,17 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
+
 import { StText } from "./StText";
 
 const StyledButton = styled(TouchableOpacity)`
 	align-items: center;
 	padding: 10px;
 	justify-content: center;
-	border: 5px solid ${({ theme }) => theme.color.blue};
+	${({ theme, bordered }) =>
+		bordered ? `border: 5px solid ${theme.color.primary}` : ""};
+	${({ theme, inverted }) =>
+		inverted ? `background: ${theme.color.primary}` : ""};
 `;
 
 const StyledView = styled(View)`
@@ -15,14 +19,17 @@ const StyledView = styled(View)`
 `;
 
 const StyledText = styled(StText)`
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme, inverted }) =>
+		inverted ? theme.color.bg : theme.color.primary};
 `;
 
-export const StButton = ({ children, ...rest }) => {
+export const StButton = ({ children, inverted, bordered, ...rest }) => {
 	return (
 		<StyledView>
-			<StyledButton {...rest}>
-				<StyledText centered>{children}</StyledText>
+			<StyledButton {...rest} inverted={inverted} bordered={bordered}>
+				<StyledText centered inverted={inverted}>
+					{children}
+				</StyledText>
 			</StyledButton>
 		</StyledView>
 	);

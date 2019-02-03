@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-
-import { StRadio, StPopup } from "../../../components";
-import { SquareButton } from "./SquareButton";
 import styled from "styled-components/native";
+
+import { StRadio, StPopup, StButton } from "../../../components";
 
 const StyledPopup = styled(StPopup)`
 	padding: 20px;
 `;
+
+const StyledButton = styled(StButton)`
+	margin: 30px 0;
+	padding: 0;
+`;
+
 export class RadioPopup extends Component {
 	state = {
 		visible: false
@@ -17,9 +22,9 @@ export class RadioPopup extends Component {
 		const { values, selected, children, onChange } = this.props;
 		return (
 			<View>
-				<SquareButton onPress={() => this.setState({ visible: true })}>
+				<StyledButton onPress={() => this.setState({ visible: true })}>
 					{children}
-				</SquareButton>
+				</StyledButton>
 				<StyledPopup
 					visible={this.state.visible}
 					onClose={() => this.setState({ visible: false })}
