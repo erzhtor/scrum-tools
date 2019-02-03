@@ -20,11 +20,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.oswacody.scrumtools"
+      "bundleIdentifier": "com.erzhtor.scrumtools",
+      "buildNumber": "2",
+      "icon": "./assets/images/icon_ios.png"
     },
     "android": {
       "package": "com.oswacody.scrumtools",
-      "permissions": ["VIBRATE"]
+      "permissions": ["VIBRATE"],
+      "versionCode": 2
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

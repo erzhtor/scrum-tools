@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
+import { Constants } from "expo";
 
 import { StHeader, StPopup, StText, StButton } from "../../components";
-import { version } from "../../package.json";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -31,7 +31,7 @@ const AppVersion = () => (
 			Version
 		</StyledText>
 		<StyledText secondary fontSize="14" centered>
-			{version}
+			{Constants.manifest.version}
 		</StyledText>
 	</StyledWrapper>
 );

@@ -1,12 +1,12 @@
 import React from "react";
-import { View, ScrollView, Platform } from "react-native";
+import { View, ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 import { StHeader } from "../../components/StHeader";
 import { CardSettings } from "./CardSettings";
 import { ThemeSettings } from "./ThemeSettings";
 import { About } from "./About";
-import { Donate } from "./Donate";
+import { StText } from "../../components";
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
@@ -18,6 +18,8 @@ const StyledLayout = styled(View)`
 const StyledBorder = styled(View)`
 	border-color: ${({ theme }) => theme.color.primary};
 	border-bottom-width: 0.25px;
+	border-style: solid;
+	height: 1px;
 `;
 
 export default class SettingsScreen extends React.Component {
@@ -38,12 +40,6 @@ export default class SettingsScreen extends React.Component {
 					<StyledBorder />
 					<CardSettings />
 					<StyledBorder />
-					{Platform.OS !== "android" && (
-						<React.Fragment>
-							<Donate />
-							<StyledBorder />
-						</React.Fragment>
-					)}
 					<About />
 				</StyledLayout>
 			</ScrollView>
