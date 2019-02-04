@@ -1,16 +1,8 @@
 import React from "react";
-import { View } from "react-native";
-import styled from "styled-components/native";
 
 import { Card } from "./components";
 import { AppContext } from "../../context";
 import { QUESTION_CARD, INFINITY_CARD, CUP_CARD } from "../../constants";
-
-const StyledContainer = styled(View)`
-	flex: 1;
-	align-items: center;
-	justify-content: center;
-`;
 
 export class CardListScreen extends React.Component {
 	render() {
