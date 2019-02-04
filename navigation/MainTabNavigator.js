@@ -11,10 +11,10 @@ import SettingsScreen from "../screens/Settings";
 import { StText, StTabBarIcon } from "../components";
 
 const StyledTabBarLabel = styled(StText)`
-	font-size: 10px;
+	font-size: 10;
 	color: ${({ theme, focused }) =>
 		focused ? theme.color.primary : theme.color.secondary};
-	padding-bottom: 3px;
+	padding-bottom: 3;
 `;
 
 const StandupStack = createStackNavigator({
@@ -70,7 +70,13 @@ export default createBottomTabNavigator(
 			style: {
 				borderTopColor: "transparent",
 				backgroundColor: "transparent",
-				height: 70
+				height: 70,
+				alignItems: "stretch"
+			},
+			tabStyle: {
+				alignItems: "center",
+				flexDirection: "column",
+				flex: 1
 			}
 		}
 	}

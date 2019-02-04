@@ -5,13 +5,12 @@ import { StText } from "../../../components";
 import { INFINITY_CARD, CUP_CARD, THEME_DARK } from "../../../constants";
 
 const StyledCard = styled(TouchableOpacity)`
-	width: 80px;
-	height: 80px;
-	margin: 10px;
+	height: 15%;
+	aspect-ratio: 1;
+	margin: 3%;
 	background-color: ${({ theme }) => theme.color.primary};
 	align-items: center;
 	border-radius: 6px;
-	display: flex;
 	justify-content: center;
 `;
 

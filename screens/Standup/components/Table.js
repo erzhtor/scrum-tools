@@ -7,6 +7,7 @@ const StyledRow = styled(View)`
 	align-items: center;
 	flex-direction: row;
 	padding-bottom: 20px;
+	justify-content: center;
 `;
 
 const StyledItem = styled(View)`

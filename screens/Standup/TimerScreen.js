@@ -16,7 +16,7 @@ const StyledLayout = styled(View)`
 	flex: 1;
 	flex-direction: column;
 	justify-content: space-around;
-	align-items: center;
+	align-items: stretch;
 	background: ${({ theme, warning }) =>
 		warning ? theme.color.bgWarning : theme.color.bg};
 	padding-bottom: 20px;
@@ -54,15 +54,23 @@ export default withTheme(
 							activeOpacity={0.4}
 						>
 							<StyledLayout warning={timeout}>
-								<TotalTime totalMillis={started ? totalMillis : 0} />
-								<Timer millis={started ? count : millisPerUser} />
-								<RangeSlider
-									onSliderChange={onSliderChange}
-									hidden={started}
-									value={millisPerUser}
+								<TotalTime
+									totalMillis={started ? totalMillis : 0}
+									style={{ flex: 1 }}
 								/>
+								<View style={{ flex: 2 }}>
+									<Timer millis={started ? count : millisPerUser} />
+									<RangeSlider
+										onSliderChange={onSliderChange}
+										hidden={started}
+										value={millisPerUser}
+									/>
+								</View>
 								{!started && <StartButton onPress={onStart} />}
-								<Animatable.View ref={this.handleTextRef} style={{ flex: 1 }}>
+								<Animatable.View
+									ref={this.handleTextRef}
+									style={{ flex: 1, alignItems: "center" }}
+								>
 									<StText secondary fontSize={12} centered>
 										{started ? `Participant ${participant}` : "Tap to start"}
 									</StText>
