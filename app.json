@@ -21,13 +21,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.erzhtor.scrumtools",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "icon": "./assets/images/icon_ios.png"
     },
     "android": {
       "package": "com.oswacody.scrumtools",
       "permissions": ["VIBRATE"],
-      "versionCode": 2
+      "versionCode": 3
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

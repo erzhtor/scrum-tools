@@ -32,8 +32,8 @@ export const Card = withTheme(({ item, theme, ...rest }) => {
 	const isInfinity = item === INFINITY_CARD;
 	const isCup = item === CUP_CARD;
 	return (
-		<StyledCard {...rest}>
-			<StyledLayout>
+		<StyledCard>
+			<StyledLayout {...rest}>
 				{isInfinity && (
 					<StyledImage
 						source={
