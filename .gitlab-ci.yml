@@ -13,3 +13,8 @@ test:
   script:
     - npm ci
     - npm test
+
+pages:
+  artifacts:
+    paths:
+    - public
