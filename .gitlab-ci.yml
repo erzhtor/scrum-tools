@@ -16,7 +16,7 @@ test:
 
 pages:
   script:
-    - echo 'gitlab pages!'
+    - echo 'Nothing to do!'
   artifacts:
     paths:
-    - public
+    - public/
