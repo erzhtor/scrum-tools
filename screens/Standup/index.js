@@ -1,106 +1,182 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
-import Slider from "react-native-slider";
-import styled from "styled-components";
-import ReactInterval from "react-interval";
+import { Vibration } from "react-native";
+import Swiper from "react-native-swiper";
+import { withTheme } from "styled-components/native";
+import { Audio } from "expo";
 
-import { formatMillisToTime } from "./lib/format-millis-to-time";
-import Constants from "../../constants/Layout";
-import { Timer } from "./Timer";
-import { MILLIS_IN_SECOND, INTERVAL_IN_MILLIS } from "./constants";
-import { TotalTime } from "./TotalTime";
+import { MILLIS_IN_SECOND } from "../../constants";
+import { StandupContext } from "./context";
+import { ReportScreen } from "./ReportScreen";
+import TimerScreen from "./TimerScreen";
 
-const StyledTouchableHighlight = styled(TouchableHighlight)`
-	flex: 1;
-`;
+const INTERVAL_IN_MILLIS = 350;
+const VIBRATION_DURATION = 80;
+let interval;
 
-const StyledLayout = styled(View)`
-	flex: 1;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-`;
+export default withTheme(
+	class StandupScreen extends React.Component {
+		static navigationOptions = {
+			header: null
+		};
+		state = {
+			millisPerUser: 120 * MILLIS_IN_SECOND,
+			participant: 0,
+			totalMillis: 0,
+			started: false,
+			initial: true
+		};
 
-const StyledSlider = styled(Slider)`
-	${({ hidden }) => (hidden ? "opacity: 0;" : "")};
-`;
-
-export default class StandupScreen extends React.Component {
-	static navigationOptions = {
-		header: null
-	};
-
-	state = {
-		millisPerUser: 120 * MILLIS_IN_SECOND,
-		participant: 0,
-		totalMillis: 0
-	};
-
-	onTap() {
-		const { participant, millisPerUser } = this.state;
-		this.setState({ participant: participant + 1, count: millisPerUser });
-	}
-
-	onInterval() {
-		const { totalMillis, count, participant } = this.state;
-
-		this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
-		if (!participant) {
-			return;
+		async componentDidMount() {
+			this.soundObject = new Audio.Sound();
+			await this.soundObject.loadAsync(
+				require("../../assets/sounds/alarm.mp3")
+			);
+			this.setState({ soundLoaded: true });
 		}
 
-		this.setState({ count: count - INTERVAL_IN_MILLIS });
+		/**
+		 * On participant change handler.
+		 */
+		onTap() {
+			Vibration.vibrate(VIBRATION_DURATION);
+			const { participant, millisPerUser } = this.state;
+			this.setState({
+				participant: participant + 1,
+				count: millisPerUser,
+				timeout: false
+			});
+
+			this.stopSound();
+		}
+
+		/**
+		 * React interval handler.
+		 */
+		onInterval() {
+			const { totalMillis, count, timeout = false } = this.state;
+
+			this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
+
+			if (timeout) {
+				return;
+			}
+
+			const newCount = count - INTERVAL_IN_MILLIS;
+			if (newCount < 0) {
+				this.onTimeOut();
+			} else {
+				this.setState({ count: newCount });
+			}
+		}
+
+		/**
+		 * Participant timeout handler.
+		 */
+		onTimeOut() {
+			const { timeouts = 0 } = this.state;
+			this.setState({
+				timeouts: timeouts + 1,
+				timeout: true,
+				count: 0
+			});
+			this.playSound();
+		}
+
+		async playSound() {
+			if (this.state.soundLoaded) {
+				await this.soundObject.playAsync();
+			}
+		}
+
+		async stopSound() {
+			if (this.state.soundLoaded) {
+				await this.soundObject.stopAsync();
+			}
+		}
+
+		/**
+		 * Slider value change hander.
+		 * Set millis per user when slider is changed
+		 * @param {number} value milliseconds
+		 */
+		onSliderChange(value) {
+			this.setState({ millisPerUser: value });
+		}
+
+		/**
+		 * Stop button handler.
+		 */
+		onStop() {
+			this.setState({ started: false, timeout: false });
+			clearInterval(interval);
+			this.stopSound();
+		}
+
+		/**
+		 * Start button handler.
+		 */
+		onStart() {
+			Vibration.vibrate(VIBRATION_DURATION);
+			clearInterval(interval);
+			interval = setInterval(this.onInterval.bind(this), INTERVAL_IN_MILLIS);
+
+			this.setState({
+				participant: 1,
+				started: true,
+				timeouts: 0,
+				totalMillis: 0,
+				count: this.state.millisPerUser
+			});
+		}
+
+		componentWillUnmount() {
+			this.onStop();
+		}
+
+		render() {
+			const {
+				participant,
+				millisPerUser,
+				count,
+				totalMillis,
+				timeouts,
+				timeout,
+				started,
+				initial
+			} = this.state;
+			return (
+				<StandupContext.Provider
+					value={{
+						totalMillis,
+						participant,
+						count,
+						millisPerUser,
+						timeouts,
+						started,
+						timeout,
+						onSliderChange: this.onSliderChange.bind(this)
+					}}
+				>
+					<Swiper
+						loop={false}
+						showsPagination={started || !initial}
+						scrollEnabled={started || !initial}
+						dotColor={this.props.theme.color.secondary}
+						onIndexChanged={index => {
+							this.setState({ initial: index === 0 });
+						}}
+					>
+						<TimerScreen
+							onTap={this.onTap.bind(this)}
+							onStart={this.onStart.bind(this)}
+						/>
+						<ReportScreen
+							onStop={this.onStop.bind(this)}
+							onEnd={() => this.swiper.scrollBy(-1)}
+						/>
+					</Swiper>
+				</StandupContext.Provider>
+			);
+		}
 	}
-
-	render() {
-		const { participant, millisPerUser, count, totalMillis } = this.state;
-		return (
-			<StyledTouchableHighlight
-				onPress={this.onTap.bind(this)}
-				underlayColor="lightgreen"
-			>
-				<StyledLayout>
-					<ReactInterval
-						timeout={INTERVAL_IN_MILLIS}
-						enabled={true}
-						callback={this.onInterval.bind(this)}
-					/>
-					<TotalTime>Total Time: {formatMillisToTime(totalMillis)}</TotalTime>
-
-					<View style={styles.timeContainer}>
-						<Timer>{formatMillisToTime(count || millisPerUser)}</Timer>
-						<View style={styles.rangeContainer}>
-							<StyledSlider
-								hidden={!!participant}
-								value={this.state.millisPerUser}
-								onValueChange={value => this.setState({ millisPerUser: value })}
-								minimumValue={0}
-								maximumValue={300 * MILLIS_IN_SECOND}
-								step={10 * MILLIS_IN_SECOND}
-							/>
-						</View>
-					</View>
-
-					<View style={styles.tapToStartContainer}>
-						<Text>
-							{!participant ? "Tap to start" : `Participant ${participant}`}
-						</Text>
-					</View>
-				</StyledLayout>
-			</StyledTouchableHighlight>
-		);
-	}
-}
-
-const styles = StyleSheet.create({
-	timeContainer: {
-		alignItems: "center"
-	},
-	rangeContainer: {
-		width: Constants.window.width,
-		padding: 20
-	},
-	tapToStartContainer: {
-		padding: 30
-	}
-});
+);

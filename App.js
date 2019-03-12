@@ -1,15 +1,83 @@
 import React from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
+import styled, { ThemeProvider } from "styled-components/native";
+
 import AppNavigator from "./navigation/AppNavigator";
+import { AppContext } from "./context";
+import {
+	getCardPattern,
+	setCardPattern,
+	setTheme,
+	getTheme
+} from "./lib/storage";
+import { Cards, DarkTheme, LightTheme, THEME_DARK } from "./constants";
+import { StSpinner } from "./components";
+
+const StyledLayout = styled(View)`
+	flex: 1;
+	background: ${({ theme }) => theme.color.bg};
+`;
 
 export default class App extends React.Component {
-	state = {
-		isLoadingComplete: false
-	};
+	constructor(props) {
+		super(props);
+		this.initCards = this.initCards.bind(this);
+		this.initTheme = this.initTheme.bind(this);
+		this.onCardPatternChange = this.onCardPatternChange.bind(this);
+		this.onThemeChange = this.onThemeChange.bind(this);
+		this.state = {
+			isLoadingComplete: false,
+			loading: true
+		};
+	}
+
+	async componentDidMount() {
+		await this.initCards();
+		await this.initTheme();
+	}
+
+	async initCards() {
+		const cardPattern = await getCardPattern();
+		this.setState({
+			loading: false
+		});
+		this.onCardPatternChange(cardPattern);
+	}
+
+	async initTheme() {
+		const themeKey = await getTheme();
+		this.setState({
+			themeKey
+		});
+	}
+
+	async onCardPatternChange(value) {
+		const cardKey = Object.keys(Cards).find(key => Cards[key].name === value);
+
+		this.setState({
+			cards: Cards[cardKey].value,
+			cardPattern: value
+		});
+		await setCardPattern(value);
+	}
+
+	async onThemeChange(value) {
+		this.setState({
+			themeKey: value
+		});
+		await setTheme(value);
+	}
 
 	render() {
-		if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+		const {
+			isLoadingComplete,
+			loading,
+			cards,
+			cardPattern,
+			themeKey
+		} = this.state;
+		if (!isLoadingComplete && !this.props.skipLoadingScreen) {
 			return (
 				<AppLoading
 					startAsync={this._loadResourcesAsync}
@@ -17,14 +85,31 @@ export default class App extends React.Component {
 					onFinish={this._handleFinishLoading}
 				/>
 			);
-		} else {
-			return (
-				<View style={styles.container}>
-					{Platform.OS === "ios" && <StatusBar barStyle="default" />}
-					<AppNavigator />
-				</View>
-			);
 		}
+		const isDarkTheme = themeKey === THEME_DARK;
+		return (
+			<AppContext.Provider
+				value={{
+					cards,
+					cardPattern,
+					onCardPatternChange: this.onCardPatternChange,
+					themeKey,
+					onThemeChange: this.onThemeChange
+				}}
+			>
+				<ThemeProvider theme={isDarkTheme ? DarkTheme : LightTheme}>
+					<StyledLayout>
+						{Platform.OS === "ios" && (
+							<StatusBar
+								barStyle={isDarkTheme ? "light-content" : "dark-content"}
+							/>
+						)}
+						{!loading && <AppNavigator />}
+						{loading && <StSpinner />}
+					</StyledLayout>
+				</ThemeProvider>
+			</AppContext.Provider>
+		);
 	}
 
 	_loadResourcesAsync = async () => {
@@ -38,7 +123,8 @@ export default class App extends React.Component {
 				...Icon.Ionicons.font,
 				// We include SpaceMono because we use it in HomeScreen.js. Feel free
 				// to remove this if you are not using it in your app
-				"space-mono": require("./assets/fonts/SpaceMono-Regular.ttf")
+				"Slim Joe": require("./assets/fonts/SlimJoe.otf"),
+				"Big John": require("./assets/fonts/BigJohn.otf")
 			})
 		]);
 	};
@@ -53,10 +139,3 @@ export default class App extends React.Component {
 		this.setState({ isLoadingComplete: true });
 	};
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff"
-	}
-});

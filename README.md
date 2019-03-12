@@ -7,6 +7,6 @@ A mobile application consists of:
     
     Helps tacking time for each participant. + Some history and statistics
 
-**2. Pocker cards. Estimation**
+**2. Poker cards. Estimation**
     
-    Helps with estimation using pocker cards.
+    Helps with estimation using poker cards.

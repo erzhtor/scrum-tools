@@ -1,91 +1,83 @@
 import React from "react";
-import { Platform } from "react-native";
 import {
 	createStackNavigator,
 	createBottomTabNavigator
 } from "react-navigation";
+import styled from "styled-components";
 
-import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
 import StandupScreen from "../screens/Standup";
-import LinksScreen from "../screens/LinksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import CardsScreen from "../screens/Cards";
+import SettingsScreen from "../screens/Settings";
+import { StText, StTabBarIcon } from "../components";
+
+const StyledTabBarLabel = styled(StText)`
+	font-size: 10;
+	color: ${({ theme, focused }) =>
+		focused ? theme.color.primary : theme.color.secondary};
+	padding-bottom: 3;
+`;
 
 const StandupStack = createStackNavigator({
 	Standup: StandupScreen
 });
 
 StandupStack.navigationOptions = {
-	tabBarLabel: "Standup",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-people${focused ? "" : "-outline"}`
-					: "md-people"
-			}
-		/>
-	)
-};
-
-const StatsStack = createStackNavigator({
-	Stats: HomeScreen
-});
-
-StatsStack.navigationOptions = {
-	tabBarLabel: "Stats",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-stats${focused ? "" : "-outline"}`
-					: "md-stats"
-			}
-		/>
-	)
+	tabBarLabel: ({ focused }) => (
+		<StyledTabBarLabel slim centered focused={focused}>
+			Standup
+		</StyledTabBarLabel>
+	),
+	tabBarIcon: ({ focused }) => <StTabBarIcon name="standup" focused={focused} />
 };
 
 const CardsStack = createStackNavigator({
-	Cards: LinksScreen
+	Cards: CardsScreen
 });
 
 CardsStack.navigationOptions = {
-	tabBarLabel: "Cards",
-	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-grid${focused ? "" : "-outline"}`
-					: "md-grid"
-			}
-		/>
-	)
+	tabBarLabel: ({ focused }) => (
+		<StyledTabBarLabel slim centered focused={focused}>
+			Cards
+		</StyledTabBarLabel>
+	),
+	tabBarIcon: ({ focused }) => <StTabBarIcon name="cards" focused={focused} />
 };
 
 const SettingsStack = createStackNavigator({
 	Settings: SettingsScreen
 });
 
-SettingsStack.navigationOptions = {
-	tabBarLabel: "Settings",
+SettingsStack.navigationOptions = ({ navigation }) => ({
+	tabBarLabel: ({ focused }) => (
+		<StyledTabBarLabel slim centered focused={focused}>
+			Settings
+		</StyledTabBarLabel>
+	),
 	tabBarIcon: ({ focused }) => (
-		<TabBarIcon
-			focused={focused}
-			name={
-				Platform.OS === "ios"
-					? `ios-options${focused ? "" : "-outline"}`
-					: "md-options"
-			}
-		/>
-	)
-};
-
-export default createBottomTabNavigator({
-	StandupStack,
-	StatsStack,
-	CardsStack,
-	SettingsStack
+		<StTabBarIcon name="settings" focused={focused} />
+	),
+	tabBarVisible: navigation.state.index === 0
 });
+
+export default createBottomTabNavigator(
+	{
+		StandupStack,
+		CardsStack,
+		SettingsStack
+	},
+	{
+		tabBarOptions: {
+			style: {
+				borderTopColor: "transparent",
+				backgroundColor: "transparent",
+				height: 70,
+				alignItems: "stretch"
+			},
+			tabStyle: {
+				alignItems: "center",
+				flexDirection: "column",
+				flex: 1
+			}
+		}
+	}
+);
