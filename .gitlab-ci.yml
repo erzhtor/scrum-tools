@@ -13,3 +13,10 @@ test:
   script:
     - npm ci
     - npm test
+
+pages:
+  script:
+    - echo 'Nothing to do!'
+  artifacts:
+    paths:
+    - public/
