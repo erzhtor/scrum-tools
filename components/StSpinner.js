@@ -1,6 +1,6 @@
-import React from "react";
-import { StText } from "./StText";
+import React from 'react'
+import { StText } from './StText'
 
 export const StSpinner = () => {
-	return <StText>Loading ...</StText>;
-};
+	return <StText>Loading ...</StText>
+}

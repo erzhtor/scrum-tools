@@ -1,3 +1,3 @@
-import React from "react";
+import React from 'react'
 
-export const StandupContext = React.createContext({});
+export const StandupContext = React.createContext({})

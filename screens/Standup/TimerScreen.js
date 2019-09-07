@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { TouchableHighlight, View } from "react-native";
-import styled, { withTheme } from "styled-components/native";
-import * as Animatable from "react-native-animatable";
+import React, { Component } from 'react'
+import { TouchableHighlight, View } from 'react-native'
+import styled, { withTheme } from 'styled-components/native'
+import * as Animatable from 'react-native-animatable'
 
-import { StandupContext } from "./context";
-import { StText } from "../../components";
-import { TotalTime, Timer, StartButton } from "./components";
-import RangeSlider from "./components/RangeSlider";
+import { StText } from '../../components'
+import { StandupContext } from './context'
+import { TotalTime, Timer, StartButton } from './components'
+import RangeSlider from './components/RangeSlider'
 
 const StyledTouchableHighlight = styled(TouchableHighlight)`
 	flex: 1;
-`;
+`
 
 const StyledLayout = styled(View)`
 	flex: 1;
@@ -20,21 +20,21 @@ const StyledLayout = styled(View)`
 	background: ${({ theme, warning }) =>
 		warning ? theme.color.bgWarning : theme.color.bg};
 	padding-bottom: 20px;
-`;
+`
 
 export default withTheme(
 	class TimerScreen extends Component {
 		handleTextRef = ref => (this.textContainer = ref);
 
 		onTap = () => {
-			this.props.onTap();
+			this.props.onTap()
 			if (this.textContainer) {
-				this.textContainer.zoomIn(800);
+				this.textContainer.zoomIn(800)
 			}
 		};
 
 		render() {
-			const { onStart } = this.props;
+			const { onStart } = this.props
 			return (
 				<StandupContext.Consumer>
 					{({
@@ -69,17 +69,17 @@ export default withTheme(
 								{!started && <StartButton onPress={onStart} />}
 								<Animatable.View
 									ref={this.handleTextRef}
-									style={{ flex: 1, alignItems: "center" }}
+									style={{ flex: 1, alignItems: 'center' }}
 								>
 									<StText secondary fontSize={12} centered>
-										{started ? `Participant ${participant}` : "Tap to start"}
+										{started ? `Participant ${participant}` : 'Tap to start'}
 									</StText>
 								</Animatable.View>
 							</StyledLayout>
 						</StyledTouchableHighlight>
 					)}
 				</StandupContext.Consumer>
-			);
+			)
 		}
 	}
-);
+)

@@ -1,19 +1,19 @@
-import React from "react";
-import Slider from "react-native-slider";
-import styled, { withTheme } from "styled-components/native";
-import { View } from "react-native";
+import React from 'react'
+import Slider from 'react-native-slider'
+import styled, { withTheme } from 'styled-components/native'
+import { View } from 'react-native'
 
-import { MILLIS_IN_SECOND } from "../../../constants";
-import Constants from "../../../constants/Layout";
+import { MILLIS_IN_SECOND } from '../../../constants'
+import Constants from '../../../constants/Layout'
 
 const StyledSlider = styled(Slider)`
-	${({ hidden }) => (hidden ? "opacity: 0;" : "")};
-`;
+	${({ hidden }) => (hidden ? 'opacity: 0;' : '')};
+`
 
 const StyledRangeContainer = styled(View)`
 	width: ${Constants.window.width};
 	padding: 20px;
-`;
+`
 
 const Range = ({ onSliderChange, value, hidden, theme }) => {
 	return (
@@ -31,7 +31,7 @@ const Range = ({ onSliderChange, value, hidden, theme }) => {
 				thumbTouchSize={{ width: 170, height: 170 }}
 			/>
 		</StyledRangeContainer>
-	);
-};
+	)
+}
 
-export default withTheme(Range);
+export default withTheme(Range)

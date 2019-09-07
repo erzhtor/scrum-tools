@@ -1,1 +1,1 @@
-export {formatMillisToTime} from './format-millis-to-time';
+export {formatMillisToTime} from './format-millis-to-time'

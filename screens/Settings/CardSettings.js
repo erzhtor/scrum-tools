@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 
-import { Cards } from "../../constants";
-import { AppContext } from "../../context";
-import { RadioPopup } from "./components/RadioPopup";
+import { Cards } from '../../constants'
+import { AppContext } from '../../context'
+import { RadioPopup } from './components/RadioPopup'
 
 const RADIO_ITEMS = [
-	{ label: "STANDARD", value: Cards.STANDARD.name },
-	{ label: "T-SHIRT", value: Cards.T_SHIRT.name },
-	{ label: "FIBONACCI", value: Cards.FIBONACCI.name }
-];
+	{ label: 'STANDARD', value: Cards.STANDARD.name },
+	{ label: 'T-SHIRT', value: Cards.T_SHIRT.name },
+	{ label: 'FIBONACCI', value: Cards.FIBONACCI.name }
+]
 
 export const CardSettings = () => (
 	<AppContext.Consumer>
@@ -22,4 +22,4 @@ export const CardSettings = () => (
 			</RadioPopup>
 		)}
 	</AppContext.Consumer>
-);
+)

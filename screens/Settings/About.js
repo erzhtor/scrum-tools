@@ -1,29 +1,29 @@
-import React, { Component } from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
-import styled from "styled-components/native";
-import { Constants } from "expo";
+import React, { Component } from 'react'
+import { View, ScrollView, TouchableOpacity } from 'react-native'
+import styled from 'styled-components/native'
+import { Constants } from 'expo'
 
-import { StHeader, StPopup, StText, StButton } from "../../components";
+import { StHeader, StPopup, StText, StButton } from '../../components'
 
 const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
 	height: 100%;
 	padding: 0 20px;
-`;
+`
 
 const StyledText = styled(StText)`
 	text-transform: uppercase;
 	padding: 10px;
-`;
+`
 
 const StyledWrapper = styled(View)`
 	width: 100%;
-`;
+`
 
 const StyledButton = styled(StButton)`
 	margin: 30px 0;
 	padding: 0;
-`;
+`
 
 const AppVersion = () => (
 	<StyledWrapper style={{ flex: 0.5 }}>
@@ -34,10 +34,10 @@ const AppVersion = () => (
 			{Constants.manifest.version}
 		</StyledText>
 	</StyledWrapper>
-);
+)
 
 const AboutInfo = () => (
-	<ScrollView contentContainerStyle={{ justifyContent: "center", flex: 1 }}>
+	<ScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
 		<StyledLayout>
 			<StHeader centered>About</StHeader>
 			<AppVersion />
@@ -61,7 +61,7 @@ const AboutInfo = () => (
 			</StyledWrapper>
 		</StyledLayout>
 	</ScrollView>
-);
+)
 
 export class About extends Component {
 	state = {
@@ -69,7 +69,7 @@ export class About extends Component {
 	};
 
 	onPopupClose = () => {
-		this.setState({ isModalVisible: false });
+		this.setState({ isModalVisible: false })
 	};
 
 	render() {
@@ -88,6 +88,6 @@ export class About extends Component {
 					</TouchableOpacity>
 				</StPopup>
 			</View>
-		);
+		)
 	}
 }

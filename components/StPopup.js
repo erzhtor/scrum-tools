@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Modal, TouchableOpacity } from "react-native";
-import styled from "styled-components/native";
+import React from 'react'
+import { View, Modal, TouchableOpacity } from 'react-native'
+import styled from 'styled-components/native'
 
 const StyledContainer = styled(TouchableOpacity)`
 	background: ${({ theme }) => theme.color.popup};
@@ -10,8 +10,8 @@ const StyledContainer = styled(TouchableOpacity)`
 			? `
 		justify-content: center;
 		align-items: center;`
-			: ""}
-`;
+			: ''}
+`
 
 const StyledWrapper = styled(TouchableOpacity)`
 	background: ${({ theme }) => theme.color.bg};
@@ -27,28 +27,28 @@ const StyledWrapper = styled(TouchableOpacity)`
 		border-radius: 6px;
 		padding: 10px;
 	`};
-`;
+`
 
 export class StPopup extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			visible: props.visible
-		};
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ visible: nextProps.visible });
+		this.setState({ visible: nextProps.visible })
 	}
 
 	onClose = () => {
-		this.setState({ visible: false });
-		const { onClose } = this.props;
-		onClose && onClose();
+		this.setState({ visible: false })
+		const { onClose } = this.props
+		onClose && onClose()
 	};
 
 	render() {
-		const { onClose, centered, fullscreen, children, ...rest } = this.props;
+		const { onClose, centered, fullscreen, children, ...rest } = this.props
 		return (
 			<View>
 				<Modal
@@ -68,6 +68,6 @@ export class StPopup extends React.Component {
 					</StyledContainer>
 				</Modal>
 			</View>
-		);
+		)
 	}
 }

@@ -1,25 +1,25 @@
-import React from "react";
+import React from 'react'
 import {
 	createStackNavigator,
 	createBottomTabNavigator
-} from "react-navigation";
-import styled from "styled-components";
+} from 'react-navigation'
+import styled from 'styled-components'
 
-import StandupScreen from "../screens/Standup";
-import CardsScreen from "../screens/Cards";
-import SettingsScreen from "../screens/Settings";
-import { StText, StTabBarIcon } from "../components";
+import StandupScreen from '../screens/Standup'
+import CardsScreen from '../screens/Cards'
+import SettingsScreen from '../screens/Settings'
+import { StText, StTabBarIcon } from '../components'
 
 const StyledTabBarLabel = styled(StText)`
 	font-size: 10;
 	color: ${({ theme, focused }) =>
 		focused ? theme.color.primary : theme.color.secondary};
 	padding-bottom: 3;
-`;
+`
 
 const StandupStack = createStackNavigator({
 	Standup: StandupScreen
-});
+})
 
 StandupStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
@@ -28,11 +28,11 @@ StandupStack.navigationOptions = {
 		</StyledTabBarLabel>
 	),
 	tabBarIcon: ({ focused }) => <StTabBarIcon name="standup" focused={focused} />
-};
+}
 
 const CardsStack = createStackNavigator({
 	Cards: CardsScreen
-});
+})
 
 CardsStack.navigationOptions = {
 	tabBarLabel: ({ focused }) => (
@@ -41,11 +41,11 @@ CardsStack.navigationOptions = {
 		</StyledTabBarLabel>
 	),
 	tabBarIcon: ({ focused }) => <StTabBarIcon name="cards" focused={focused} />
-};
+}
 
 const SettingsStack = createStackNavigator({
 	Settings: SettingsScreen
-});
+})
 
 SettingsStack.navigationOptions = ({ navigation }) => ({
 	tabBarLabel: ({ focused }) => (
@@ -57,7 +57,7 @@ SettingsStack.navigationOptions = ({ navigation }) => ({
 		<StTabBarIcon name="settings" focused={focused} />
 	),
 	tabBarVisible: navigation.state.index === 0
-});
+})
 
 export default createBottomTabNavigator(
 	{
@@ -68,16 +68,16 @@ export default createBottomTabNavigator(
 	{
 		tabBarOptions: {
 			style: {
-				borderTopColor: "transparent",
-				backgroundColor: "transparent",
+				borderTopColor: 'transparent',
+				backgroundColor: 'transparent',
 				height: 70,
-				alignItems: "stretch"
+				alignItems: 'stretch'
 			},
 			tabStyle: {
-				alignItems: "center",
-				flexDirection: "column",
+				alignItems: 'center',
+				flexDirection: 'column',
 				flex: 1
 			}
 		}
 	}
-);
+)

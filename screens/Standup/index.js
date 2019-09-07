@@ -1,17 +1,17 @@
-import React from "react";
-import { Vibration } from "react-native";
-import Swiper from "react-native-swiper";
-import { withTheme } from "styled-components/native";
-import { Audio } from "expo";
+import React from 'react'
+import { Vibration } from 'react-native'
+import Swiper from 'react-native-swiper'
+import { withTheme } from 'styled-components/native'
+import { Audio } from 'expo'
 
-import { MILLIS_IN_SECOND } from "../../constants";
-import { StandupContext } from "./context";
-import { ReportScreen } from "./ReportScreen";
-import TimerScreen from "./TimerScreen";
+import { MILLIS_IN_SECOND } from '../../constants'
+import { StandupContext } from './context'
+import { ReportScreen } from './ReportScreen'
+import TimerScreen from './TimerScreen'
 
-const INTERVAL_IN_MILLIS = 350;
-const VIBRATION_DURATION = 80;
-let interval;
+const INTERVAL_IN_MILLIS = 350
+const VIBRATION_DURATION = 80
+let interval
 
 export default withTheme(
 	class StandupScreen extends React.Component {
@@ -27,45 +27,45 @@ export default withTheme(
 		};
 
 		async componentDidMount() {
-			this.soundObject = new Audio.Sound();
+			this.soundObject = new Audio.Sound()
 			await this.soundObject.loadAsync(
-				require("../../assets/sounds/alarm.mp3")
-			);
-			this.setState({ soundLoaded: true });
+				require('../../assets/sounds/alarm.mp3')
+			)
+			this.setState({ soundLoaded: true })
 		}
 
 		/**
 		 * On participant change handler.
 		 */
 		onTap() {
-			Vibration.vibrate(VIBRATION_DURATION);
-			const { participant, millisPerUser } = this.state;
+			Vibration.vibrate(VIBRATION_DURATION)
+			const { participant, millisPerUser } = this.state
 			this.setState({
 				participant: participant + 1,
 				count: millisPerUser,
 				timeout: false
-			});
+			})
 
-			this.stopSound();
+			this.stopSound()
 		}
 
 		/**
 		 * React interval handler.
 		 */
 		onInterval() {
-			const { totalMillis, count, timeout = false } = this.state;
+			const { totalMillis, count, timeout = false } = this.state
 
-			this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS });
+			this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS })
 
 			if (timeout) {
-				return;
+				return
 			}
 
-			const newCount = count - INTERVAL_IN_MILLIS;
+			const newCount = count - INTERVAL_IN_MILLIS
 			if (newCount < 0) {
-				this.onTimeOut();
+				this.onTimeOut()
 			} else {
-				this.setState({ count: newCount });
+				this.setState({ count: newCount })
 			}
 		}
 
@@ -73,24 +73,24 @@ export default withTheme(
 		 * Participant timeout handler.
 		 */
 		onTimeOut() {
-			const { timeouts = 0 } = this.state;
+			const { timeouts = 0 } = this.state
 			this.setState({
 				timeouts: timeouts + 1,
 				timeout: true,
 				count: 0
-			});
-			this.playSound();
+			})
+			this.playSound()
 		}
 
 		async playSound() {
 			if (this.state.soundLoaded) {
-				await this.soundObject.playAsync();
+				await this.soundObject.playAsync()
 			}
 		}
 
 		async stopSound() {
 			if (this.state.soundLoaded) {
-				await this.soundObject.stopAsync();
+				await this.soundObject.stopAsync()
 			}
 		}
 
@@ -100,25 +100,25 @@ export default withTheme(
 		 * @param {number} value milliseconds
 		 */
 		onSliderChange(value) {
-			this.setState({ millisPerUser: value });
+			this.setState({ millisPerUser: value })
 		}
 
 		/**
 		 * Stop button handler.
 		 */
 		onStop() {
-			this.setState({ started: false, timeout: false });
-			clearInterval(interval);
-			this.stopSound();
+			this.setState({ started: false, timeout: false })
+			clearInterval(interval)
+			this.stopSound()
 		}
 
 		/**
 		 * Start button handler.
 		 */
 		onStart() {
-			Vibration.vibrate(VIBRATION_DURATION);
-			clearInterval(interval);
-			interval = setInterval(this.onInterval.bind(this), INTERVAL_IN_MILLIS);
+			Vibration.vibrate(VIBRATION_DURATION)
+			clearInterval(interval)
+			interval = setInterval(this.onInterval.bind(this), INTERVAL_IN_MILLIS)
 
 			this.setState({
 				participant: 1,
@@ -126,11 +126,11 @@ export default withTheme(
 				timeouts: 0,
 				totalMillis: 0,
 				count: this.state.millisPerUser
-			});
+			})
 		}
 
 		componentWillUnmount() {
-			this.onStop();
+			this.onStop()
 		}
 
 		render() {
@@ -143,7 +143,7 @@ export default withTheme(
 				timeout,
 				started,
 				initial
-			} = this.state;
+			} = this.state
 			return (
 				<StandupContext.Provider
 					value={{
@@ -163,7 +163,7 @@ export default withTheme(
 						scrollEnabled={started || !initial}
 						dotColor={this.props.theme.color.secondary}
 						onIndexChanged={index => {
-							this.setState({ initial: index === 0 });
+							this.setState({ initial: index === 0 })
 						}}
 					>
 						<TimerScreen
@@ -176,7 +176,7 @@ export default withTheme(
 						/>
 					</Swiper>
 				</StandupContext.Provider>
-			);
+			)
 		}
 	}
-);
+)

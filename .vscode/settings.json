@@ -7,5 +7,21 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "node_modules": true
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#aad87d",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#538fcb",
+    "activityBarBadge.foreground": "#15202b",
+    "titleBar.activeBackground": "#90cc56",
+    "titleBar.inactiveBackground": "#90cc5699",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99",
+    "statusBar.background": "#90cc56",
+    "statusBarItem.hoverBackground": "#76b837",
+    "statusBar.foreground": "#15202b"
+  },
+  "peacock.color": "#90cc56",
+  "eslint.autoFixOnSave": true
 }

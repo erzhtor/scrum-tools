@@ -1,22 +1,29 @@
-import React from "react";
+import React from 'react'
+import { FlatGrid } from 'react-native-super-grid'
 
-import { Card } from "./components";
-import { AppContext } from "../../context";
-import { QUESTION_CARD, INFINITY_CARD, CUP_CARD } from "../../constants";
+import { AppContext } from '../../context'
+import { QUESTION_CARD, INFINITY_CARD, CUP_CARD } from '../../constants'
+import { Card } from './components'
 
 export class CardListScreen extends React.Component {
 	render() {
-		const { onItemClick } = this.props;
+		const { onItemClick } = this.props
 		return (
 			<AppContext.Consumer>
 				{({ cards }) => (
-					<React.Fragment>
-						{[...cards, QUESTION_CARD, CUP_CARD, INFINITY_CARD].map(item => (
-							<Card key={item} onPress={() => onItemClick(item)} item={item} />
-						))}
-					</React.Fragment>
+					<FlatGrid
+						itemDimension={100}
+						items={[...cards, QUESTION_CARD, CUP_CARD, INFINITY_CARD]}
+						contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}
+						renderItem={({ item }) => (
+							<Card
+								onPress={() => onItemClick(item)}
+								item={item}
+							/>
+						)}
+					/>
 				)}
 			</AppContext.Consumer>
-		);
+		)
 	}
 }
