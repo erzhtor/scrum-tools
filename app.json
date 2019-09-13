@@ -4,8 +4,11 @@
     "description": "Scrum standup + poker cards tools mobile app.",
     "slug": "scrum-tools",
     "privacy": "public",
-    "sdkVersion": "31.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "34.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,7 +20,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.erzhtor.scrumtools",
@@ -26,7 +31,9 @@
     },
     "android": {
       "package": "com.oswacody.scrumtools",
-      "permissions": ["VIBRATE"],
+      "permissions": [
+        "VIBRATE"
+      ],
       "versionCode": 3
     },
     "androidStatusBarColor": "#334393",

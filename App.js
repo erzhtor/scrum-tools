@@ -1,6 +1,8 @@
 import React from 'react'
 import { Platform, StatusBar, View } from 'react-native'
-import { AppLoading, Asset, Font, Icon } from 'expo'
+import { AppLoading, Icon } from 'expo'
+import { Asset } from 'expo-asset'
+import * as Font from 'expo-font'
 import styled, { ThemeProvider } from 'styled-components/native'
 
 import AppNavigator from './navigation/AppNavigator'
@@ -120,7 +122,7 @@ export default class App extends React.Component {
 			]),
 			Font.loadAsync({
 				// This is the font that we are using for our tab bar
-				...Icon.Ionicons.font,
+				// ...Icon.Ionicons.font,
 				// We include SpaceMono because we use it in HomeScreen.js. Feel free
 				// to remove this if you are not using it in your app
 				'Slim Joe': require('./assets/fonts/SlimJoe.otf'),

@@ -2,7 +2,7 @@ import React from 'react'
 import { Vibration } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { withTheme } from 'styled-components/native'
-import { Audio } from 'expo'
+import { Audio } from 'expo-av'
 
 import { MILLIS_IN_SECOND } from '../../constants'
 import { StandupContext } from './context'
