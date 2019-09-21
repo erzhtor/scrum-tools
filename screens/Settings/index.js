@@ -35,10 +35,13 @@ export default class SettingsScreen extends React.Component {
 		return (
 			<ScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
 				<StyledLayout>
+
 					<ThemeSettings />
 					<StyledBorder />
+
 					<CardSettings />
 					<StyledBorder />
+
 					<About />
 				</StyledLayout>
 			</ScrollView>

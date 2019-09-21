@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Cards } from '../../constants'
 import { AppContext } from '../../context'
@@ -10,16 +10,15 @@ const RADIO_ITEMS = [
 	{ label: 'FIBONACCI', value: Cards.FIBONACCI.name }
 ]
 
-export const CardSettings = () => (
-	<AppContext.Consumer>
-		{({ onCardPatternChange, cardPattern }) => (
-			<RadioPopup
-				values={RADIO_ITEMS}
-				selected={cardPattern}
-				onChange={onCardPatternChange}
-			>
-				Cards' pattern
-			</RadioPopup>
-		)}
-	</AppContext.Consumer>
-)
+export const CardSettings = () => {
+	const { onCardPatternChange, cardPattern } = useContext(AppContext)
+	return (
+		<RadioPopup
+			values={RADIO_ITEMS}
+			selected={cardPattern}
+			onChange={onCardPatternChange}
+		>
+			Cards' pattern
+		</RadioPopup>
+	)
+}

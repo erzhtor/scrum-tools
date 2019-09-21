@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -9,37 +9,32 @@ const StyledPopup = styled(StPopup)`
 `
 
 const StyledButton = styled(StButton)`
-	margin: 30px 0;
-	padding: 0;
+	width: 100%;
+	padding: 30px 0;
+	align-items: flex-start;
 `
 
-export class RadioPopup extends Component {
-	state = {
-		visible: false
-	};
-
-	render() {
-		const { values, selected, children, onChange } = this.props
-		return (
-			<View>
-				<StyledButton onPress={() => this.setState({ visible: true })}>
-					{children}
-				</StyledButton>
-				<StyledPopup
-					visible={this.state.visible}
-					onClose={() => this.setState({ visible: false })}
-					centered
-				>
-					<StRadio
-						items={values}
-						selected={selected}
-						onChange={value => {
-							this.setState({ visible: false })
-							onChange(value)
-						}}
-					/>
-				</StyledPopup>
-			</View>
-		)
-	}
+export const RadioPopup = ({ values, selected, children, onChange }) => {
+	const [visible, setVisible] = useState(false)
+	return (
+		<View>
+			<StyledButton onPress={() => setVisible(true)}>
+				{children}
+			</StyledButton>
+			<StyledPopup
+				visible={visible}
+				onClose={() => setVisible(false)}
+				centered
+			>
+				<StRadio
+					items={values}
+					selected={selected}
+					onChange={value => {
+						setVisible(false)
+						onChange(value)
+					}}
+				/>
+			</StyledPopup>
+		</View>
+	)
 }

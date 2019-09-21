@@ -1,15 +1,9 @@
-import React, { Component } from 'react'
+import React, { useState, useCallback } from 'react'
 import { View, ScrollView, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import Constants from 'expo-constants'
 
 import { StHeader, StPopup, StText, StButton } from '../../components'
-
-const StyledLayout = styled(View)`
-	background: ${({ theme }) => theme.color.bg};
-	height: 100%;
-	padding: 0 20px;
-`
 
 const StyledText = styled(StText)`
 	text-transform: uppercase;
@@ -18,11 +12,6 @@ const StyledText = styled(StText)`
 
 const StyledWrapper = styled(View)`
 	width: 100%;
-`
-
-const StyledButton = styled(StButton)`
-	margin: 30px 0;
-	padding: 0;
 `
 
 const AppVersion = () => (
@@ -35,6 +24,12 @@ const AppVersion = () => (
 		</StyledText>
 	</StyledWrapper>
 )
+
+const StyledLayout = styled(View)`
+	background: ${({ theme }) => theme.color.bg};
+	height: 100%;
+	padding: 0 20px;
+`
 
 const AboutInfo = () => (
 	<ScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
@@ -63,31 +58,34 @@ const AboutInfo = () => (
 	</ScrollView>
 )
 
-export class About extends Component {
-	state = {
-		isModalVisible: false
-	};
+const StyledView = styled(View)`
+	flex-direction: row;
+`
 
-	onPopupClose = () => {
-		this.setState({ isModalVisible: false })
-	};
+const StyledButton = styled(StButton)`
+	width: 100%;
+	padding: 30px 0;
+	align-items: flex-start;
+`
 
-	render() {
-		return (
-			<View>
-				<StyledButton onPress={() => this.setState({ isModalVisible: true })}>
-					About
-				</StyledButton>
-				<StPopup
-					visible={this.state.isModalVisible}
-					onClose={this.onPopupClose}
-					fullscreen
-				>
-					<TouchableOpacity onPress={this.onPopupClose} style={{ flex: 1 }}>
-						<AboutInfo />
-					</TouchableOpacity>
-				</StPopup>
-			</View>
-		)
-	}
+export const About = () => {
+	const [visible, setVisible] = useState(false)
+	const handleClose = useCallback(() => setVisible(false), [])
+
+	return (
+		<StyledView>
+			<StyledButton onPress={() => setVisible(true)}>
+				About
+			</StyledButton>
+			<StPopup
+				visible={visible}
+				onClose={handleClose}
+				fullscreen
+			>
+				<TouchableOpacity onPress={handleClose} style={{ flex: 1 }}>
+					<AboutInfo />
+				</TouchableOpacity>
+			</StPopup>
+		</StyledView>
+	)
 }

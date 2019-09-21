@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Switch, View } from 'react-native'
-import styled, { withTheme } from 'styled-components/native'
+import styled, { ThemeContext } from 'styled-components/native'
 
 import { THEME_DARK, THEME_LIGHT } from '../../constants'
 import { AppContext } from '../../context'
@@ -18,20 +18,20 @@ const StyledSwitch = styled(Switch)`
 	margin: 0;
 `
 
-export const ThemeSettings = withTheme(({ theme }) => (
-	<AppContext.Consumer>
-		{({ onThemeChange, themeKey }) => (
-			<StyledSection>
-				<StText>Dark Theme</StText>
-				<StyledSwitch
-					onValueChange={darkThemeOn =>
-						onThemeChange(darkThemeOn ? THEME_DARK : THEME_LIGHT)
-					}
-					value={themeKey === THEME_DARK}
-					thumbColor={theme.color.blue}
-					trackColor={{ true: theme.color.switchTintOn }}
-				/>
-			</StyledSection>
-		)}
-	</AppContext.Consumer>
-))
+export const ThemeSettings = () => {
+	const { onThemeChange, themeKey } = useContext(AppContext)
+	const theme = useContext(ThemeContext)
+	return (
+		<StyledSection>
+			<StText>Dark Theme</StText>
+			<StyledSwitch
+				onValueChange={darkThemeOn =>
+					onThemeChange(darkThemeOn ? THEME_DARK : THEME_LIGHT)
+				}
+				value={themeKey === THEME_DARK}
+				thumbColor={theme.color.blue}
+				trackColor={{ true: theme.color.switchTintOn }}
+			/>
+		</StyledSection>
+	)
+}
