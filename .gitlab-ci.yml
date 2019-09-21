@@ -11,12 +11,12 @@ cache:
 
 test:
   script:
-    - npm ci
-    - npm test
+    - yarn
+    - yarn lint
 
 pages:
   script:
     - echo 'Nothing to do!'
   artifacts:
     paths:
-    - public/
+      - public/
