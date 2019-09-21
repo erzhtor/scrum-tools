@@ -15,13 +15,13 @@ const StyledRangeContainer = styled(View)`
 	padding: 20px;
 `
 
-const Range = ({ onSliderChange, value, hidden, theme }) => {
+const Range = ({ onRangeChange, value, hidden, theme }) => {
 	return (
 		<StyledRangeContainer>
 			<StyledSlider
 				hidden={hidden}
 				value={value}
-				onValueChange={onSliderChange}
+				onValueChange={onRangeChange}
 				minimumValue={10 * MILLIS_IN_SECOND}
 				maximumValue={300 * MILLIS_IN_SECOND}
 				step={10 * MILLIS_IN_SECOND}

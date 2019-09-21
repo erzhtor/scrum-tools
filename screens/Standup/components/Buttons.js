@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { withTheme } from 'styled-components/native'
+import React, { useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components/native'
 import { Image, TouchableOpacity } from 'react-native'
 import { THEME_LIGHT } from '../../../constants'
 
@@ -16,7 +16,8 @@ const StyledTouchableOpacity = styled(TouchableOpacity)`
 	justify-content: center;
 `
 
-export const StartButton = withTheme(({ theme, ...props }) => {
+export const StartButton = props => {
+	const theme = useContext(ThemeContext)
 	return (
 		<StyledTouchableOpacity {...props}>
 			<StyledImage
@@ -29,11 +30,12 @@ export const StartButton = withTheme(({ theme, ...props }) => {
 			/>
 		</StyledTouchableOpacity>
 	)
-})
+}
 
-export const StopButton = withTheme(({ theme, ...props }) => {
+export const StopButton = props => {
+	const theme = useContext(ThemeContext)
 	return (
-		<StyledTouchableOpacity {...props}>
+		<StyledTouchableOpacity {...props} style={{ flex: 0.5 }}>
 			<StyledImage
 				size={80}
 				source={
@@ -44,4 +46,4 @@ export const StopButton = withTheme(({ theme, ...props }) => {
 			/>
 		</StyledTouchableOpacity>
 	)
-})
+}

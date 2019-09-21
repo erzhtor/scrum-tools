@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Vibration } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { withTheme } from 'styled-components/native'
 import { Audio } from 'expo-av'
 
-import { MILLIS_IN_SECOND } from '../../constants'
-import { StandupContext } from './context'
-import { ReportScreen } from './ReportScreen'
-import { TimerScreen } from './TimerScreen'
+import { StandupContext } from '../context'
+import { ReportScreen } from './Report'
+import { TimerScreen } from './Timer'
 
 const INTERVAL_IN_MILLIS = 350
 const VIBRATION_DURATION = 80
@@ -15,26 +14,45 @@ let interval
 
 export default withTheme(
 	class StandupScreen extends React.Component {
-		state = {
-			millisPerUser: 120 * MILLIS_IN_SECOND,
-			participant: 0,
-			totalMillis: 0,
-			started: false,
-			initial: true
-		};
+		constructor(props) {
+			super(props)
+			const millisPerUser = props.navigation.getParam('millis')
+			this.state = {
+				millisPerUser,
+				participant: 0,
+				totalMillis: 0,
+				stopped: true
+			}
+		}
 
 		async componentDidMount() {
 			this.soundObject = new Audio.Sound()
 			await this.soundObject.loadAsync(
-				require('../../assets/sounds/alarm.mp3')
+				require('../../../assets/sounds/alarm.mp3')
 			)
 			this.setState({ soundLoaded: true })
+
+			Vibration.vibrate(VIBRATION_DURATION)
+			clearInterval(interval)
+			interval = setInterval(this.handleInterval.bind(this), INTERVAL_IN_MILLIS)
+
+			this.setState({
+				participant: 1,
+				stopped: false,
+				timeouts: 0,
+				totalMillis: 0,
+				count: this.state.millisPerUser
+			})
+		}
+
+		componentWillUnmount() {
+			this.handleStop()
 		}
 
 		/**
 		 * On participant change handler.
 		 */
-		onTap() {
+		handleNextParticipant() {
 			Vibration.vibrate(VIBRATION_DURATION)
 			const { participant, millisPerUser } = this.state
 			this.setState({
@@ -42,14 +60,12 @@ export default withTheme(
 				count: millisPerUser,
 				timeout: false
 			})
-
-			this.stopSound()
 		}
 
 		/**
 		 * React interval handler.
 		 */
-		onInterval() {
+		handleInterval() {
 			const { totalMillis, count, timeout = false } = this.state
 
 			this.setState({ totalMillis: totalMillis + INTERVAL_IN_MILLIS })
@@ -60,7 +76,7 @@ export default withTheme(
 
 			const newCount = count - INTERVAL_IN_MILLIS
 			if (newCount < 0) {
-				this.onTimeOut()
+				this.handleTimeout()
 			} else {
 				this.setState({ count: newCount })
 			}
@@ -69,25 +85,19 @@ export default withTheme(
 		/**
 		 * Participant timeout handler.
 		 */
-		onTimeOut() {
+		handleTimeout() {
 			const { timeouts = 0 } = this.state
 			this.setState({
 				timeouts: timeouts + 1,
 				timeout: true,
 				count: 0
 			})
-			this.playSound()
+			this._playSound()
 		}
 
-		async playSound() {
+		async _playSound() {
 			if (this.state.soundLoaded) {
-				await this.soundObject.playAsync()
-			}
-		}
-
-		async stopSound() {
-			if (this.state.soundLoaded) {
-				await this.soundObject.stopAsync()
+				await this.soundObject.replayAsync()
 			}
 		}
 
@@ -96,38 +106,16 @@ export default withTheme(
 		 * Set millis per user when slider is changed
 		 * @param {number} value milliseconds
 		 */
-		onSliderChange(value) {
+		handleRangeChange(value) {
 			this.setState({ millisPerUser: value })
 		}
 
 		/**
 		 * Stop button handler.
 		 */
-		onStop() {
-			this.setState({ started: false, timeout: false })
+		handleStop() {
+			this.setState({ stopped: true, timeout: false })
 			clearInterval(interval)
-			this.stopSound()
-		}
-
-		/**
-		 * Start button handler.
-		 */
-		onStart() {
-			Vibration.vibrate(VIBRATION_DURATION)
-			clearInterval(interval)
-			interval = setInterval(this.onInterval.bind(this), INTERVAL_IN_MILLIS)
-
-			this.setState({
-				participant: 1,
-				started: true,
-				timeouts: 0,
-				totalMillis: 0,
-				count: this.state.millisPerUser
-			})
-		}
-
-		componentWillUnmount() {
-			this.onStop()
 		}
 
 		render() {
@@ -138,8 +126,7 @@ export default withTheme(
 				totalMillis,
 				timeouts,
 				timeout,
-				started,
-				initial
+				stopped
 			} = this.state
 			return (
 				<StandupContext.Provider
@@ -149,26 +136,25 @@ export default withTheme(
 						count,
 						millisPerUser,
 						timeouts,
-						started,
 						timeout,
-						onSliderChange: this.onSliderChange.bind(this)
+						stopped,
+						onRangeChange: this.handleRangeChange.bind(this)
 					}}
 				>
 					<Swiper
 						loop={false}
-						showsPagination={started || !initial}
-						scrollEnabled={started || !initial}
+						showsPagination={true}
+						scrollEnabled={true}
 						dotColor={this.props.theme.color.secondary}
 						onIndexChanged={index => {
-							this.setState({ initial: index === 0 })
+							if (index === 0 && stopped) {
+								this.props.navigation.goBack()
+							}
 						}}
 					>
-						<TimerScreen
-							onTap={this.onTap.bind(this)}
-							onStart={this.onStart.bind(this)}
-						/>
+						<TimerScreen onTap={this.handleNextParticipant.bind(this)} />
 						<ReportScreen
-							onStop={this.onStop.bind(this)}
+							onStop={this.handleStop.bind(this)}
 							onEnd={() => this.swiper.scrollBy(-1)}
 						/>
 					</Swiper>

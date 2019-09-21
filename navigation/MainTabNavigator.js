@@ -5,10 +5,11 @@ import {
 } from 'react-navigation'
 import styled from 'styled-components'
 
-import StandupScreen from '../screens/Standup'
 import CardsScreen from '../screens/Cards'
 import SettingsScreen from '../screens/Settings'
 import { StText, StTabBarIcon } from '../components'
+import Timer from '../screens/Standup/Timer'
+import { StartScreen } from '../screens/Standup/Start'
 
 const StyledTabBarLabel = styled(StText)`
 	font-size: 10;
@@ -19,21 +20,29 @@ const StyledTabBarLabel = styled(StText)`
 
 const StandupStack = createStackNavigator({
 	Standup: {
-		screen: StandupScreen,
+		screen: StartScreen,
 		navigationOptions: {
 			header: null
+		}
+	},
+	Timer: {
+		screen: Timer,
+		navigationOptions: {
+			header: null,
+			tabBarVisible: false
 		}
 	}
 })
 
-StandupStack.navigationOptions = {
+StandupStack.navigationOptions = ({ navigation }) => ({
 	tabBarLabel: ({ focused }) => (
 		<StyledTabBarLabel slim centered focused={focused}>
 			Standup
 		</StyledTabBarLabel>
 	),
-	tabBarIcon: ({ focused }) => <StTabBarIcon name="standup" focused={focused} />
-}
+	tabBarIcon: ({ focused }) => <StTabBarIcon name="standup" focused={focused} />,
+	tabBarVisible: navigation.state.index === 0
+})
 
 const CardsStack = createStackNavigator({
 	Cards: {

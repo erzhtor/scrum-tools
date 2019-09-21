@@ -3,10 +3,9 @@ import { TouchableHighlight, View } from 'react-native'
 import styled, { ThemeContext } from 'styled-components/native'
 import * as Animatable from 'react-native-animatable'
 
-import { StText } from '../../components'
-import { StandupContext } from './context'
-import { TotalTime, Timer, StartButton } from './components'
-import RangeSlider from './components/RangeSlider'
+import { StText } from '../../../components'
+import { StandupContext } from '../context'
+import { TotalTime, Timer } from '../components'
 
 const StyledTouchableHighlight = styled(TouchableHighlight)`
 	flex: 1;
@@ -22,13 +21,13 @@ const StyledLayout = styled(View)`
 	padding-bottom: 20px;
 `
 
-export const TimerScreen = ({ onStart, onTap }) => {
+export const TimerScreen = ({ onTap }) => {
 	const textRef = useRef(null)
 	const theme = useContext(ThemeContext)
 
 	const {
-		totalMillis, millisPerUser, participant,
-		count, timeout, started, onSliderChange
+		totalMillis, participant,
+		count, timeout
 	} = useContext(StandupContext)
 
 	const handlePress = useCallback(() => {
@@ -36,35 +35,23 @@ export const TimerScreen = ({ onStart, onTap }) => {
 		textRef.current.zoomIn(800)
 	}, [onTap])
 
-
 	return (
 		<StyledTouchableHighlight
-			onPress={started ? handlePress : null}
-			underlayColor={
-				started ? theme.color.underlayColor : null
-			}
+			onPress={handlePress}
+			underlayColor={theme.color.underlayColor}
 			activeOpacity={0.4}
 		>
 			<StyledLayout warning={timeout}>
-				<TotalTime
-					totalMillis={started ? totalMillis : 0}
-					style={{ flex: 1 }}
-				/>
+				<TotalTime totalMillis={totalMillis} style={{ flex: 1 }} />
 				<View style={{ flex: 2 }}>
-					<Timer millis={started ? count : millisPerUser} />
-					<RangeSlider
-						onSliderChange={onSliderChange}
-						hidden={started}
-						value={millisPerUser}
-					/>
+					<Timer millis={count} />
 				</View>
-				{!started && <StartButton onPress={onStart} />}
 				<Animatable.View
 					ref={textRef}
 					style={{ flex: 1, alignItems: 'center' }}
 				>
 					<StText secondary fontSize={12} centered>
-						{started ? `Participant ${participant}` : 'Tap to start'}
+						{`Participant ${participant}`}
 					</StText>
 				</Animatable.View>
 			</StyledLayout>
