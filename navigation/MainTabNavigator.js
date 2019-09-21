@@ -18,7 +18,12 @@ const StyledTabBarLabel = styled(StText)`
 `
 
 const StandupStack = createStackNavigator({
-	Standup: StandupScreen
+	Standup: {
+		screen: StandupScreen,
+		navigationOptions: {
+			header: null
+		}
+	}
 })
 
 StandupStack.navigationOptions = {
@@ -31,7 +36,13 @@ StandupStack.navigationOptions = {
 }
 
 const CardsStack = createStackNavigator({
-	Cards: CardsScreen
+	Cards: {
+		screen: CardsScreen,
+		navigationOptions: {
+			title: null,
+			header: null
+		}
+	}
 })
 
 CardsStack.navigationOptions = {

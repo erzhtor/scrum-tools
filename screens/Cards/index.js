@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -14,32 +14,16 @@ const StyledLayout = styled(View)`
 	align-content: center;
 `
 
-export default class CardsScreen extends React.Component {
-	static navigationOptions = {
-		title: null,
-		header: null
-	};
-
-	state = {};
-
-	onItemClick(item) {
-		this.setState({ selected: item })
-	}
-
-	render() {
-		const { selected } = this.state
-		return (
-			<StyledLayout>
-				{!selected && (
-					<CardListScreen onItemClick={this.onItemClick.bind(this)} />
-				)}
-				{selected && (
-					<CardScreen
-						onPress={() => this.setState({ selected: null })}
-						item={selected}
-					/>
-				)}
-			</StyledLayout>
-		)
-	}
+const CardsScreen = () => {
+	const [selected, setSelected] = useState(null)
+	const handleClick = useCallback(item => setSelected(item), [])
+	const handleClear = useCallback(() => setSelected(null), [])
+	return (
+		<StyledLayout>
+			{!selected && <CardListScreen onItemClick={handleClick} />}
+			{selected && <CardScreen onPress={handleClear} item={selected} />}
+		</StyledLayout>
+	)
 }
+
+export default CardsScreen

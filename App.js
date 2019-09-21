@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, StatusBar, View } from 'react-native'
-import { AppLoading, Icon } from 'expo'
+import { AppLoading } from 'expo'
 import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
 import styled, { ThemeProvider } from 'styled-components/native'

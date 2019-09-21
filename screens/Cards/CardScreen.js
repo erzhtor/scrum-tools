@@ -1,20 +1,15 @@
-import React from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import { TouchableOpacity } from 'react-native'
-import styled, { withTheme } from 'styled-components/native'
+import styled, { ThemeContext } from 'styled-components/native'
 import * as Animatable from 'react-native-animatable'
 
 import { StText, StPopup } from '../../components'
 import { INFINITY_CARD, CUP_CARD, THEME_LIGHT } from '../../constants'
 
-const StyledButton = styled(TouchableOpacity)`
-	flex: 1;
-	justify-content: center;
-`
+const LargeCard = ({ item }) => {
+	const theme = useContext(ThemeContext)
 
-const LargeCard = withTheme(({ item, theme }) => {
-	const isCup = item === CUP_CARD
-
-	if (isCup) {
+	if (item === CUP_CARD) {
 		return (
 			<Animatable.Image
 				animation="zoomIn"
@@ -29,8 +24,7 @@ const LargeCard = withTheme(({ item, theme }) => {
 		)
 	}
 
-	const isInfinity = item === INFINITY_CARD
-	if (isInfinity) {
+	if (item === INFINITY_CARD) {
 		return (
 			<Animatable.Image
 				style={{ width: '70%', height: '70%', alignSelf: 'center' }}
@@ -52,32 +46,27 @@ const LargeCard = withTheme(({ item, theme }) => {
 			</StText>
 		</Animatable.View>
 	)
-})
+}
+
+const StyledButton = styled(TouchableOpacity)`
+	flex: 1;
+	justify-content: center;
+`
 
 const StyledText = styled(StText)`
 	align-self: center;
 `
 
-export class CardScreen extends React.Component {
-	state = {};
-	render() {
-		const { revealed } = this.state
-		const { item, onPress } = this.props
-		return (
-			<StPopup visible={!!item} onClose={onPress} fullscreen>
-				<StyledButton
-					onPress={() => {
-						if (!revealed) {
-							this.setState({ revealed: true })
-						} else {
-							onPress()
-						}
-					}}
-				>
-					{!revealed && <StyledText>Tap to reveal</StyledText>}
-					{revealed && <LargeCard item={item} />}
-				</StyledButton>
-			</StPopup>
-		)
-	}
+export const CardScreen = ({ item, onPress }) => {
+	const [revealed, setRevealed] = useState(false)
+	const handleClick = useCallback(() => revealed ? onPress() : setRevealed(true), [onPress, revealed])
+
+	return (
+		<StPopup visible={!!item} onClose={onPress} fullscreen>
+			<StyledButton onPress={handleClick}>
+				{!revealed && <StyledText>Tap to reveal</StyledText>}
+				{revealed && <LargeCard item={item} />}
+			</StyledButton>
+		</StPopup>
+	)
 }

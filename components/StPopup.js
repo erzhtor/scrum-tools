@@ -48,7 +48,7 @@ export class StPopup extends React.Component {
 	};
 
 	render() {
-		const { onClose, centered, fullscreen, children, ...rest } = this.props
+		const { centered, fullscreen, children, ...rest } = this.props
 		return (
 			<View>
 				<Modal

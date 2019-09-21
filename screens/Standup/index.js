@@ -7,7 +7,7 @@ import { Audio } from 'expo-av'
 import { MILLIS_IN_SECOND } from '../../constants'
 import { StandupContext } from './context'
 import { ReportScreen } from './ReportScreen'
-import TimerScreen from './TimerScreen'
+import { TimerScreen } from './TimerScreen'
 
 const INTERVAL_IN_MILLIS = 350
 const VIBRATION_DURATION = 80
@@ -15,9 +15,6 @@ let interval
 
 export default withTheme(
 	class StandupScreen extends React.Component {
-		static navigationOptions = {
-			header: null
-		};
 		state = {
 			millisPerUser: 120 * MILLIS_IN_SECOND,
 			participant: 0,
