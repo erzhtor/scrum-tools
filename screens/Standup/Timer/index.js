@@ -21,6 +21,8 @@ export default withTheme(
 				millisPerUser,
 				participant: 0,
 				totalMillis: 0,
+				timeouts: 0,
+				count: millisPerUser,
 				stopped: true
 			}
 		}
@@ -39,9 +41,6 @@ export default withTheme(
 			this.setState({
 				participant: 1,
 				stopped: false,
-				timeouts: 0,
-				totalMillis: 0,
-				count: this.state.millisPerUser
 			})
 		}
 

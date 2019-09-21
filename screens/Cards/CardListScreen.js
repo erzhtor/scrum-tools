@@ -1,4 +1,5 @@
 import React, { useContext, useMemo } from 'react'
+import { View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 import Constants from '../../constants/Layout'
 
@@ -10,21 +11,21 @@ export const CardListScreen = ({ onItemClick }) => {
 	const { cards } = useContext(AppContext)
 	const itemDimension = useMemo(() => Constants.window.width / 3.5, [])
 	return (
-		<FlatGrid
-			itemDimension={itemDimension}
-			items={[...cards, QUESTION_CARD, CUP_CARD, INFINITY_CARD]}
-			contentContainerStyle={{
-				justifyContent: 'center',
-				alignItems: 'center',
-				marginTop: 40,
-				paddingBottom: 70
-			}}
-			renderItem={({ item }) => (
-				<Card
-					onPress={() => onItemClick(item)}
-					item={item}
-				/>
-			)}
-		/>
+		<View style={{ marginTop: 20 }}>
+			<FlatGrid
+				itemDimension={itemDimension}
+				items={[...cards, QUESTION_CARD, CUP_CARD, INFINITY_CARD]}
+				contentContainerStyle={{
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+				renderItem={({ item }) => (
+					<Card
+						onPress={() => onItemClick(item)}
+						item={item}
+					/>
+				)}
+			/>
+		</View>
 	)
 }
