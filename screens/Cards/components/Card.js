@@ -5,11 +5,9 @@ import { StText } from '../../../components'
 import { INFINITY_CARD, CUP_CARD, THEME_DARK } from '../../../constants'
 
 const StyledLayout = styled(TouchableOpacity)`
-	width: 100px;
-	height: 100px;
+	aspect-ratio: 1;
 	align-items: center;
 	justify-content: center;
-	flex: 1;
 	background-color: ${({ theme }) => theme.color.primary};
 	border-radius: 6px;
 `

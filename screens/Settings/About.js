@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, ScrollView, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 
 import { StHeader, StPopup, StText, StButton } from '../../components'
 

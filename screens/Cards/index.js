@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CardListScreen } from './CardListScreen'
@@ -10,7 +10,7 @@ const StyledLayout = styled(View)`
 	flex-direction: row;
 	flex-wrap: wrap;
 	background-color: ${({ theme }) => theme.color.bg};
-	justify-content: space-around;
+	justify-content: center;
 	align-content: center;
 `
 
@@ -29,19 +29,17 @@ export default class CardsScreen extends React.Component {
 	render() {
 		const { selected } = this.state
 		return (
-			<ScrollView contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
-				<StyledLayout>
-					{!selected && (
-						<CardListScreen onItemClick={this.onItemClick.bind(this)} />
-					)}
-					{selected && (
-						<CardScreen
-							onPress={() => this.setState({ selected: null })}
-							item={selected}
-						/>
-					)}
-				</StyledLayout>
-			</ScrollView>
+			<StyledLayout>
+				{!selected && (
+					<CardListScreen onItemClick={this.onItemClick.bind(this)} />
+				)}
+				{selected && (
+					<CardScreen
+						onPress={() => this.setState({ selected: null })}
+						item={selected}
+					/>
+				)}
+			</StyledLayout>
 		)
 	}
 }

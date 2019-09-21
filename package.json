@@ -20,6 +20,7 @@
     "expo": "^34.0.4",
     "expo-asset": "^6.0.0",
     "expo-av": "^6.0.0",
+    "expo-constants": "^7.0.0",
     "expo-font": "^6.0.1",
     "prop-types": "^15.7.2",
     "react": "16.8.3",

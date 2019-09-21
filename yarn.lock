@@ -2318,6 +2318,12 @@ expo-av@^6.0.0:
     lodash "^4.17.11"
     nullthrows "^1.1.0"
 
+expo-constants@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-7.0.0.tgz#668c3ec0100e219522ffd9515ec47fadfccd443d"
+  dependencies:
+    ua-parser-js "^0.7.19"
+
 expo-constants@~6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-6.0.0.tgz#ff4598985ba006e24949be3f05be7429e5bedacf"

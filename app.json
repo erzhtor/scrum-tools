@@ -30,7 +30,7 @@
       "icon": "./assets/images/icon_ios.png"
     },
     "android": {
-      "package": "com.oswacody.scrumtools",
+      "package": "com.erzhtor.scrumtools",
       "permissions": [
         "VIBRATE"
       ],
