@@ -40,6 +40,18 @@
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#334393"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "erzhtorllc",
+            "project": "scrum-tools",
+            "authToken": "63fd8ec4dd2811e9ab044201c0a8d02b"
+          }
+        }
+      ]
     }
   }
 }

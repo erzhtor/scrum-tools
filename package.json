@@ -30,6 +30,7 @@
     "react-native-super-grid": "^3.0.9",
     "react-native-swiper": "^1.5.14",
     "react-navigation": "^2.9.3",
+    "sentry-expo": "^2.0.0",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
