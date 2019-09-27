@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -25,16 +25,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.erzhtor.scrumtools",
-      "buildNumber": "3",
+      "bundleIdentifier": "com.doublenomads.scrumtools",
+      "buildNumber": "4",
       "icon": "./assets/images/icon_ios.png"
     },
     "android": {
-      "package": "com.erzhtor.scrumtools",
+      "package": "com.doublenomads.scrumtools",
       "permissions": [
         "VIBRATE"
       ],
-      "versionCode": 3
+      "versionCode": 4
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {
@@ -46,7 +46,7 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "erzhtorllc",
+            "organization": "doublenomads",
             "project": "scrum-tools",
             "authToken": "63fd8ec4dd2811e9ab044201c0a8d02b"
           }

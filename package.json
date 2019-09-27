@@ -10,7 +10,9 @@
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js",
     "test:watch": "node ./node_modules/jest/bin/jet.js --watchAll",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:ios": "expo build:ios",
+    "build:android": "expo build:android"
   },
   "jest": {
     "preset": "jest-expo"

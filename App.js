@@ -23,6 +23,14 @@ const StyledLayout = styled(View)`
 	background: ${({ theme }) => theme.color.bg};
 `
 
+Sentry.init({
+	dsn: 'https://6415e28a897c4ba2b2f2128205dd0c9b@sentry.io/1757501',
+	enableInExpoDevelopment: false,
+	debug: false
+})
+
+Sentry.setRelease(Constants.manifest.revisionId)
+
 export default class App extends React.Component {
 	constructor(props) {
 		super(props)
@@ -34,14 +42,6 @@ export default class App extends React.Component {
 			isLoadingComplete: false,
 			loading: true
 		}
-
-		Sentry.init({
-			dsn: 'https://6415e28a897c4ba2b2f2128205dd0c9b@sentry.io/1757501',
-			enableInExpoDevelopment: false,
-			debug: false
-		})
-
-		Sentry.setRelease(Constants.manifest.revisionId)
 	}
 
 	async componentDidMount() {
