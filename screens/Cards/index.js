@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
+import Constants from 'expo-constants'
 
 import { CardListScreen } from './CardListScreen'
 import { CardScreen } from './CardScreen'
@@ -12,6 +13,7 @@ const StyledLayout = styled(View)`
 	background-color: ${({ theme }) => theme.color.bg};
 	justify-content: center;
 	align-content: center;
+	padding-top: ${Constants.statusBarHeight || 28}px;
 `
 
 const CardsScreen = () => {

@@ -11,7 +11,7 @@ export const CardListScreen = ({ onItemClick }) => {
 	const { cards } = useContext(AppContext)
 	const itemDimension = useMemo(() => Constants.window.width / 3.5, [])
 	return (
-		<View style={{ marginTop: 20 }}>
+		<View>
 			<FlatGrid
 				itemDimension={itemDimension}
 				items={[...cards, QUESTION_CARD, CUP_CARD, INFINITY_CARD]}
